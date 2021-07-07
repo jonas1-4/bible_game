@@ -1,4 +1,6 @@
 
+import 'package:bible_game/data/colors.dart';
+import 'package:bible_game/data/public_variables.dart';
 import 'package:flutter/material.dart';
 
 class MenuCard extends StatelessWidget {
@@ -8,7 +10,7 @@ class MenuCard extends StatelessWidget {
   @override
   Widget build(BuildContext buildContext) {
     return Card(
-      color: Colors.blue,
+      color: Colorthemes.backgroundlight[theme],
       elevation: 5,
       margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
       child: Padding(
@@ -18,7 +20,7 @@ class MenuCard extends StatelessWidget {
             Center(
                 child: Text(
               '$titletext',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+              style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
             )),
           ],
         ),

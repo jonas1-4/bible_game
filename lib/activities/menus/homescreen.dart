@@ -1,8 +1,9 @@
+import 'package:bible_game/data/colors.dart';
+import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 
 class Homescreen extends StatefulWidget {
   @override
@@ -16,17 +17,17 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.blue,
+          backgroundColor: Colorthemes.foreground[theme],
           title: Title(
               color: Colors.black,
               child: Text(
                 'Bibel-Lehrer',
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colorthemes.background[theme]),
               )),
           centerTitle: true,
         ),
         body: Container(
-          color: Colors.blue,
+          color: Colorthemes.background[theme],
           child: Padding(
             padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
             child: Column(
@@ -34,10 +35,14 @@ class _HomescreenState extends State<Homescreen> {
                 SizedBox(
                   height: 50,
                 ),
-               Image.asset(
-                  'assets/MenuDrawing.png',
-                  width: 150,
-                  height: 150,
+                Container(margin: EdgeInsets.all(35),
+                  child: ColorFiltered(
+                      child: Image.asset(
+                        'assets/MenuDrawing.png',
+                        fit: BoxFit.fill
+                      ),
+                      colorFilter: ColorFilter.mode(
+                          Colorthemes.foreground[theme], BlendMode.srcIn)),
                 ),
                 SizedBox(height: 75),
                 Container(
@@ -49,8 +54,7 @@ class _HomescreenState extends State<Homescreen> {
                       children: <Widget>[
                         if (biblevers[0] != 'fehler')
                           InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: MenuCard(titletext: 'Fortfahren'),
                           ),
                         InkWell(
@@ -60,8 +64,7 @@ class _HomescreenState extends State<Homescreen> {
                           child: MenuCard(titletext: 'Lernen'),
                         ),
                         InkWell(
-                            onTap: () {
-                            },
+                            onTap: () {},
                             child: MenuCard(titletext: 'Wettbewerb')),
                         SizedBox(height: 50),
                       ],
@@ -74,4 +77,3 @@ class _HomescreenState extends State<Homescreen> {
         ));
   }
 }
-
