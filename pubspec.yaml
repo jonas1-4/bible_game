@@ -45,6 +45,7 @@ flutter:
   uses-material-design: true
   assets:
    - assets/
+   - assets/de_schlachter.json
    - lib/data/reporsitories/bibles/
 
 
