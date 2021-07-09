@@ -5,13 +5,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class Homescreen extends StatefulWidget {
-  @override
-  _HomescreenState createState() => _HomescreenState();
-}
+import '../../main.dart';
 
-class _HomescreenState extends State<Homescreen> {
-  List<String> biblevers = ['Fehler'];
+class Homescreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +47,13 @@ class _HomescreenState extends State<Homescreen> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           verticalDirection: VerticalDirection.down,
                           children: <Widget>[
-                            if (biblevers[0] != 'fehler')
-                              InkWell(
-                                onTap: () {},
-                                child: MenuCard(titletext: 'Fortfahren'),
-                              ),
+                             // InkWell(
+                             //   onTap: () {},
+                             //   child: MenuCard(titletext: 'Fortfahren'),
+                             // ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, '/versselect');
+                                Navigator.pushNamed(context, verseSelectPath);
                               },
                               child: MenuCard(titletext: 'Lernen'),
                             ),
