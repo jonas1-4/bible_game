@@ -26,54 +26,54 @@ class _HomescreenState extends State<Homescreen> {
               )),
           centerTitle: true,
         ),
-        body: Container(
-          color: Colorthemes.background[theme],
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(50, 0, 50, 0),
-            child: Column(
-              children: <Widget>[
-                SizedBox(
-                  height: 50,
-                ),
-                Container(margin: EdgeInsets.all(35),
-                  child: ColorFiltered(
-                      child: Image.asset(
-                        'assets/MenuDrawing.png',
-                        fit: BoxFit.fill
-                      ),
-                      colorFilter: ColorFilter.mode(
-                          Colorthemes.foreground[theme], BlendMode.srcIn)),
-                ),
-                SizedBox(height: 75),
-                Container(
-                  child: Expanded(
-                    flex: 1,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      verticalDirection: VerticalDirection.down,
-                      children: <Widget>[
-                        if (biblevers[0] != 'fehler')
-                          InkWell(
-                            onTap: () {},
-                            child: MenuCard(titletext: 'Fortfahren'),
+        body: LayoutBuilder(
+          builder: (context, constrains) {
+            return Container(
+                height: constrains.maxHeight,
+              color: Colorthemes.background[theme],
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(50, 20, 50, 50),
+                child: Column(
+                  children: <Widget>[
+                    Expanded(
+                        flex: 1,
+                      child: ColorFiltered(
+                          child: Image.asset(
+                            'assets/MenuDrawing.png',
                           ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.pushNamed(context, '/versselect');
-                          },
-                          child: MenuCard(titletext: 'Lernen'),
-                        ),
-                        InkWell(
-                            onTap: () {},
-                            child: MenuCard(titletext: 'Wettbewerb')),
-                        SizedBox(height: 50),
-                      ],
+                          colorFilter: ColorFilter.mode(
+                              Colorthemes.foreground[theme], BlendMode.srcIn)),
                     ),
-                  ),
+                    Container(
+                      child: Expanded(
+                        flex: 1,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          verticalDirection: VerticalDirection.down,
+                          children: <Widget>[
+                            if (biblevers[0] != 'fehler')
+                              InkWell(
+                                onTap: () {},
+                                child: MenuCard(titletext: 'Fortfahren'),
+                              ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, '/versselect');
+                              },
+                              child: MenuCard(titletext: 'Lernen'),
+                            ),
+                            InkWell(
+                                onTap: () {},
+                                child: MenuCard(titletext: 'Wettbewerb')),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          }
         ));
   }
 }
