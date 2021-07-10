@@ -53,7 +53,7 @@ class Homescreen extends StatelessWidget {
                              // ),
                             InkWell(
                               onTap: () {
-                                Navigator.pushNamed(context, verseSelectPath);
+                                Navigator.pushNamed(context, bookSelectPath);
                               },
                               child: MenuCard(titletext: 'Lernen'),
                             ),

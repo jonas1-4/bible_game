@@ -2,11 +2,12 @@ import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/jsons.dart';
 import 'package:flutter/material.dart';
 
+import 'activities/menus/book_select.dart';
 import 'activities/menus/homescreen.dart';
-import 'activities/menus/verseselect.dart';
 
 const String homescreenPath = '/homescreen';
-const String verseSelectPath = '/verseselect';
+const String bookSelectPath = '/bookselect';
+
 void main() async{
   //needed for Flutter and assets
   WidgetsFlutterBinding.ensureInitialized();
@@ -17,7 +18,7 @@ void main() async{
     initialRoute: homescreenPath,
     routes: {
       homescreenPath: (context) => Homescreen(),
-      verseSelectPath: (context) => VerseSelect(),
+      bookSelectPath: (context) => BookSelect(),
     }
   ));
 }

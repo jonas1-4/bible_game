@@ -1,20 +1,19 @@
+import 'package:bible_game/activities/menus/chapter_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
-import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../main.dart';
 
 //Thanks to (List Search): https://www.kindacode.com/article/how-to-create-a-filter-search-listview-in-flutter/
 
-class VerseSelect extends StatefulWidget {
+class BookSelect extends StatefulWidget {
   @override
-  _VerseSelectState createState() => _VerseSelectState();
+  _BookSelectState createState() => _BookSelectState();
 }
 
-class _VerseSelectState extends State<VerseSelect> {
+class _BookSelectState extends State<BookSelect> {
   List<String> _books = Bible().getBookList();
   List<String> _booksResult = [];
 
@@ -54,7 +53,7 @@ class _VerseSelectState extends State<VerseSelect> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Verse-Select',
+                'Book-Select',
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -91,7 +90,9 @@ class _VerseSelectState extends State<VerseSelect> {
                                     color: Colorthemes.backgroundlight[theme]),
                                 TextButton(
                                     style: TextButton.styleFrom(primary: Colorthemes.backgroundlight[theme]),
-                                    onPressed: () => null,
+                                    onPressed: () {
+                                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new ChapterSelect(book: index)));
+                                    },
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
