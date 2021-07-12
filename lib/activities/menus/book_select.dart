@@ -53,7 +53,7 @@ class _BookSelectState extends State<BookSelect> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Book-Select',
+                'Book',
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,

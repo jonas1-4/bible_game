@@ -13,12 +13,13 @@ class Homescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colorthemes.foreground[theme],
+          foregroundColor: Colorthemes.background[theme],
+          backgroundColor: Colorthemes.backgroundlight[theme],
           title: Title(
               color: Colors.black,
               child: Text(
                 'Bibel-Lehrer',
-                style: TextStyle(color: Colorthemes.background[theme]),
+                style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
         ),

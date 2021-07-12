@@ -1,11 +1,10 @@
+import 'package:bible_game/activities/menus/verse_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../main.dart';
 
 class ChapterSelect extends StatelessWidget {
   ChapterSelect({required this.book});
@@ -15,12 +14,13 @@ class ChapterSelect extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Colorthemes.foreground[theme],
+          foregroundColor: Colorthemes.background[theme],
+          backgroundColor: Colorthemes.backgroundlight[theme],
           title: Title(
               color: Colors.black,
               child: Text(
-                'Bibel-Lehrer',
-                style: TextStyle(color: Colorthemes.background[theme]),
+                'Chapter',
+                style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
         ),
@@ -46,8 +46,7 @@ class ChapterSelect extends StatelessWidget {
                                       primary:
                                           Colorthemes.backgroundlight[theme]),
                                   onPressed: () {
-                                    print(
-                                        bible[book]['chapters'][index].length);
+                                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new VerseSelect(book: book, chapter: index)));
                                   },
                                   child: Row(
                                     mainAxisAlignment:
@@ -60,7 +59,7 @@ class ChapterSelect extends StatelessWidget {
                                                   .foreground[theme],
                                               fontSize: 16)),
                                       Expanded(child: Container()),
-                                      Text('0%')
+                                      Text('0/${bible[book]['chapters'][index].length}')
                                     ],
                                   )),
                             ],
