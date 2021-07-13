@@ -1,5 +1,6 @@
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/jsons.dart';
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 
 import 'activities/menus/book_select.dart';
@@ -9,9 +10,9 @@ const String homescreenPath = '/homescreen';
 const String bookSelectPath = '/bookselect';
 
 void main() async{
-  //needed for Flutter and assets
+  //needed for async main
   WidgetsFlutterBinding.ensureInitialized();
-    
+  await SharedPrefs.init();
   bible = await JsonService().getJson('assets/de_schlachter.json');
   runApp(MaterialApp(
     initialRoute: homescreenPath,

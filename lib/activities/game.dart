@@ -1,12 +1,9 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../main.dart';
-import 'menus/homescreen.dart';
 
 class RememberingGame extends StatefulWidget {
   RememberingGame({
