@@ -11,9 +11,8 @@ const String bookSelectPath = '/bookselect';
 void main() async{
   //needed for Flutter and assets
   WidgetsFlutterBinding.ensureInitialized();
-
+    
   bible = await JsonService().getJson('assets/de_schlachter.json');
-  print('${bible[0]['chapters'][0][0]}');
   runApp(MaterialApp(
     initialRoute: homescreenPath,
     routes: {

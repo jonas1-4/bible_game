@@ -20,25 +20,22 @@ class RememberingGame extends StatefulWidget {
 }
 
 class _RememberingGameState extends State<RememberingGame> {
-  List<String> unorderedVerse = [], orderedVerse = [];
-  Map<String, bool> score = {};
+  List<String> unorderedVerses = [],
+      orderedVerses = [],
+      correctVerses = [],
+      noDublicateVerses = [];
 
   @override
   void initState() {
     super.initState();
-    unorderedVerse = widget.unorderedVerse;
-    orderedVerse = widget.orderedVerse;
+    unorderedVerses = widget.unorderedVerse;
+    orderedVerses = widget.orderedVerse;
+    noDublicateVerses = orderedVerses.toSet().toList();
   }
 
   @override
   Widget build(BuildContext context) {
-    String i;
-    for (i in orderedVerse) {
-      if (!unorderedVerse.contains(i)) {
-        score[i] = true;
-      }
-    }
-    print(orderedVerse);
+    print(orderedVerses);
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colorthemes.background[theme],
@@ -52,289 +49,74 @@ class _RememberingGameState extends State<RememberingGame> {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Container(
-                  alignment: Alignment.topCenter,
-                  color: Colorthemes.background[theme],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Card(
-                        color: Colorthemes.backgroundlight[theme],
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Wrap(
-                              children: orderedVerse.map((e) {
-                            return Draggable<String>(
-                              data: e,
-                              child: Container(
-                                color: Colorthemes.backgroundlight[theme],
-                                child: Column(children: <Widget>[
-                                  if (score[e] == true)
-                                    Container()
-                                  else
-                                    Material(
-                                        color: Colorthemes.backgroundlight[theme],
-                                        child: Container(
-                                      color: Colorthemes.backgroundlight[theme],
-                                      margin: new EdgeInsets.symmetric(
-                                          horizontal: 3.0, vertical: 4),
-                                      child: InkWell(
-                                        onTap: () {
-                                          for (var i in orderedVerse) {
-                                            if (score[i] != true) {
-                                              if (e == i) {
-                                                setState(() {
-                                                  score[i] = true;
-                                                  for (var c in orderedVerse) {
-                                                    if (c == i) {
-                                                      unorderedVerse.remove(i);
-                                                    }
-                                                  }
-                                                  if (0 ==
-                                                      unorderedVerse.length) {
-                                                    runApp(Homescreen());
-                                                  }
-                                                });
-                                                return;
-                                              }
-                                              return;
-                                            }
-                                          }
-                                        },
-                                        child: Chip(
-                                          elevation: 4,
-                                          backgroundColor: Colorthemes
-                                              .background[theme],
-                                          label: Text(
-                                            e,
-                                            style: TextStyle(
-                                                color: Colorthemes.foreground[theme],
-                                                fontSize: 17),
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                ]),
-                              ),
-                              feedback: Material(
-                                color: Colors.transparent,
-                                child: Chip(
-                                  backgroundColor:
-                                      Colorthemes.backgroundlight[theme],
-                                  label: Text(
-                                    e,
-                                    style: TextStyle(
-                                        color: Colorthemes.foreground[theme],
-                                        fontSize: 17),
+        child: SizedBox.expand(
+          child: Container(
+            padding: EdgeInsets.all(20),
+            color: Colorthemes.background[theme],
+            child: Column(
+              children: <Widget>[
+                Expanded(
+                  flex: 1,
+                  child: Wrap(
+                      children: orderedVerses.map((e) {
+                    return InkWell(
+                        child: Container(
+                            margin: EdgeInsets.all(3),
+                            child: Chip(
+                                backgroundColor: (!correctVerses.contains(e))
+                                    ? Colorthemes.backgroundlight[theme]
+                                    : Colorthemes.backgroundlight[theme],
+                                shadowColor: Colorthemes.backgroundlight[theme],
+                                label: Text(
+                                  e,
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: (!correctVerses.contains(e))
+                                        ? Colorthemes.backgroundlight[theme]
+                                        : Colorthemes.foreground[theme],
                                   ),
-                                ),
-                              ),
-                              childWhenDragging: Container(),
-                            );
-                          }).toList()),
-                        ),
+                                ))));
+                  }).toList()),
+                ),
+                Expanded(
+                    flex: 1,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      child: Wrap(
+                        alignment: WrapAlignment.start,
+                        crossAxisAlignment: WrapCrossAlignment.end,
+                        children: unorderedVerses.map((e) {
+                          return InkWell(
+                            child: Container(
+                                margin: EdgeInsets.all(3),
+                                child: InkWell(
+                                  onTap: () {
+                                      if (noDublicateVerses[
+                                              correctVerses.length] ==
+                                          e) {
+                                    setState(() {
+                                      unorderedVerses.remove(e);
+                                        correctVerses.add(e);
+                                    });}
+                                  },
+                                  child: Chip(
+                                      backgroundColor:
+                                          Colorthemes.backgroundlight[theme],
+                                      shadowColor:
+                                          Colorthemes.backgroundlight[theme],
+                                      label: Text(e,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colorthemes
+                                                  .foreground[theme]))),
+                                )),
+                          );
+                        }).toList(),
                       ),
-                    ),
-                  ))
-              //Container(
-              //    height: 300,
-              //    alignment: Alignment.topCenter,
-              //    color: Colorthemes.background[theme],
-              //    child: Padding(
-              //      padding: const EdgeInsets.all(8.0),
-              //      child: Container(
-              //          height: 100,
-              //        child: Card(
-              //            color: Colorthemes.accent[theme],
-              //          child: Padding(
-              //            padding: const EdgeInsets.all(8.0),
-              //            child: Container(
-              //                height: 399,
-              //              child: Column(
-              //                crossAxisAlignment: CrossAxisAlignment.start,
-              //                mainAxisSize: MainAxisSize.min,
-              //                children: <Widget>[
-              //                  ListView(
-              //                    children: [
-              //                      Wrap(
-              //                          alignment: WrapAlignment.start,
-              //                          children: orderedVerse.map((e) {
-              //                            return DragTarget<String>(
-              //                              builder: (BuildContext context,
-              //                                  List<String?> incoming,
-              //                                  List rejected) {
-              //                                if (score[e]!) {
-              //                                  return Container(
-              //    height: 300,
-              //                                    color: Colorthemes.accent[theme],
-              //                                    margin: new EdgeInsets.symmetric(
-              //                                        horizontal: 3.0),
-              //                                    child: Material(
-              //                                      color: Colors.transparent,
-              //                                      child: Chip(
-              //                                        elevation: 4,
-              //                                        backgroundColor: Colorthemes
-              //                                            .backgroundlight[theme],
-              //                                        label: Text(
-              //                                          e,
-              //                                          style: TextStyle(
-              //                                              color: Colors.black,
-              //                                              fontSize: 17),
-              //                                        ),
-              //                                      ),
-              //                                    ),
-              //                                  );
-              //                                } else {
-              //                                  return Container(
-              //                                    margin: new EdgeInsets.symmetric(
-              //                                        horizontal: 3.0),
-              //                                    color: Colorthemes.accent[theme],
-              //                                    child: Material(
-
-              //                                      color: Colorthemes.accent[theme],
-              //                                      child: Chip(
-              //                                        backgroundColor:
-              //                                            Colors.grey[200],
-              //                                        label: Text(
-              //                                          e,
-              //                                          style: TextStyle(
-              //                                              color:
-              //                                                  Colors.grey[200]),
-              //                                        ),
-              //                                      ),
-              //                                    ),
-              //                                  );
-              //                                }
-              //                              },
-
-              //                              //Wenn eingabe Richtig dann:
-
-              //                              onAccept: (data) {
-              //                                setState(() {
-              //                                  score[e] = true;
-
-              //                                  for (var c in orderedVerse) {
-              //                                    if (c == e) {
-              //                                      orderedVerse.remove(e);
-              //                                    }
-              //                                  }
-
-              //                                  if (0 == unorderedVerse.length) {
-              //                                    runApp(Homescreen());
-              //                                  }
-              //                                });
-              //                              },
-
-              //                              onWillAccept: (data) => data == e,
-
-              //                              onLeave: (data) {},
-              //                            );
-              //                          }).toList()),
-              //                    ],
-              //                  ),
-              //                  //Container(
-              //                  //    alignment: Alignment.bottomRight,
-              //                  //    child: Text('$stelle'))
-              //                ],
-              //              ),
-              //            ),
-              //          ),
-              //        ),
-              //      ),
-              //    )),
+                    ))
+              ],
             ),
-            Expanded(
-              child: Container(
-                  alignment: Alignment.bottomCenter,
-                  color: Colorthemes.background[theme],
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                      width: double.infinity,
-                      child: Card(
-                        color: Colorthemes.backgroundlight[theme],
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Wrap(
-                              children: unorderedVerse.map((e) {
-                            return Draggable<String>(
-                              data: e,
-                              child: Container(
-                                color: Colorthemes.backgroundlight[theme],
-                                child: Column(children: <Widget>[
-                                  if (score[e] == true)
-                                    Container()
-                                  else
-                                    Material(
-                                        color: Colorthemes.backgroundlight[theme],
-                                        child: Container(
-                                      color: Colorthemes.backgroundlight[theme],
-                                      margin: new EdgeInsets.symmetric(
-                                          horizontal: 3.0, vertical: 4),
-                                      child: InkWell(
-                                        onTap: () {
-                                          for (var i in orderedVerse) {
-                                            if (score[i] != true) {
-                                              if (e == i) {
-                                                setState(() {
-                                                  score[i] = true;
-                                                  for (var c in orderedVerse) {
-                                                    if (c == i) {
-                                                      unorderedVerse.remove(i);
-                                                    }
-                                                  }
-                                                  if (0 ==
-                                                      unorderedVerse.length) {
-                                                    runApp(Homescreen());
-                                                  }
-                                                });
-                                                return;
-                                              }
-                                              return;
-                                            }
-                                          }
-                                        },
-                                        child: Chip(
-                                          elevation: 4,
-                                          backgroundColor: Colorthemes
-                                              .background[theme],
-                                          label: Text(
-                                            e,
-                                            style: TextStyle(
-                                                color: Colorthemes.foreground[theme],
-                                                fontSize: 17),
-                                          ),
-                                        ),
-                                      ),
-                                    ))
-                                ]),
-                              ),
-                              feedback: Material(
-                                color: Colors.transparent,
-                                child: Chip(
-                                  backgroundColor:
-                                      Colorthemes.backgroundlight[theme],
-                                  label: Text(
-                                    e,
-                                    style: TextStyle(
-                                        color: Colorthemes.foreground[theme],
-                                        fontSize: 17),
-                                  ),
-                                ),
-                              ),
-                              childWhenDragging: Container(),
-                            );
-                          }).toList()),
-                        ),
-                      ),
-                    ),
-                  )),
-            ),
-          ],
+          ),
         ),
       ),
     );
