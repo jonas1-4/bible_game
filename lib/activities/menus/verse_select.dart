@@ -1,6 +1,7 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -46,14 +47,16 @@ class VerseSelect extends StatelessWidget {
                           onTap: () {
                             List verses =
                                 Bible().getSplitVerse(book, chapter, index);
-
-                            print(verses);
+                            SharedPrefs().setSpIntList(
+                                spLastVerse, [book, chapter, index]);
                             Navigator.push(
                                 context,
                                 new MaterialPageRoute(
                                     builder: (context) => new RememberingGame(
-                                        orderedVerse: verses[0],
-                                        unorderedVerse: verses[1])));
+                                          book: book,
+                                          chapter: chapter,
+                                          verse: index,
+                                        )));
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
