@@ -20,14 +20,24 @@ class RememberingGame extends StatefulWidget {
 }
 
 class _RememberingGameState extends State<RememberingGame> {
+  //unorderedVerses   = bottom words shuffled
+  //orderedVerses     = words in correctOrder
+  //correctVerses     = words which are accepted/pressed
+  //noDublicateVerses = words in correctOrder but without dublicates
+  //errors            = times a wrong word was clicked/number of hearts 
   List<String> unorderedVerses = [],
       orderedVerses = [],
       correctVerses = [],
       noDublicateVerses = [];
+  int errors = 0;
 
   @override
   void initState() {
     super.initState();
+
+    //printing to see Solution for debuging etc.
+    print(orderedVerses);
+
     noDublicateVerses = orderedVerses.toSet().toList();
     List verses =
         Bible().getSplitVerse(widget.book, widget.chapter, widget.verse);
@@ -38,9 +48,9 @@ class _RememberingGameState extends State<RememberingGame> {
 
   @override
   Widget build(BuildContext context) {
-    print(orderedVerses);
     return WillPopScope(
       onWillPop: () async {
+        //have to pop so the lastverse/continue Button updates
         Navigator.popAndPushNamed(context, homescreenPath);
         return true;
       },
@@ -63,6 +73,29 @@ class _RememberingGameState extends State<RememberingGame> {
               color: Colorthemes.background[theme],
               child: Column(
                 children: <Widget>[
+                  (errors < 4) ?
+                  Row(children: [
+                    Expanded(
+                      child: Container(),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon((errors < 1)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon((errors < 2)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon((errors < 3)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
+                    ),
+                  ]):
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Icon(Icons.favorite_border, color: Colorthemes.background[theme], size: 25),
+                    ),
+                  SizedBox(height: 20),
                   Expanded(
                     flex: 1,
                     child: Wrap(
@@ -104,8 +137,20 @@ class _RememberingGameState extends State<RememberingGame> {
                                               correctVerses.length] ==
                                           e) {
                                         setState(() {
-                                          while(unorderedVerses.contains(e)) unorderedVerses.remove(e);
+                                          while (unorderedVerses.contains(e))
+                                            unorderedVerses.remove(e);
                                           correctVerses.add(e);
+                                        });
+                                      if (correctVerses.length ==
+                                          noDublicateVerses.length) {
+                                        if(errors < 4){
+                                          print('krass');
+                                        }
+                                        print('baby');
+                                      }
+                                      }else{
+                                        setState((){
+                                          errors++;
                                         });
                                       }
                                     },
