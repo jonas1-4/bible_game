@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../main.dart';
+import 'menus/after_level.dart';
 
 class RememberingGame extends StatefulWidget {
   RememberingGame({
@@ -144,6 +145,12 @@ class _RememberingGameState extends State<RememberingGame> {
                                       if (correctVerses.length ==
                                           noDublicateVerses.length) {
                                         if(errors < 4){
+
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => new EndScreen(
+                                        )));
                                           print('krass');
                                         }
                                         print('baby');
