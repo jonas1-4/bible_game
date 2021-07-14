@@ -33,6 +33,7 @@ class _RememberingGameState extends State<RememberingGame> {
         Bible().getSplitVerse(widget.book, widget.chapter, widget.verse);
     orderedVerses = verses[0];
     unorderedVerses = verses[1];
+    noDublicateVerses = orderedVerses.toSet().toList();
   }
 
   @override
@@ -103,7 +104,7 @@ class _RememberingGameState extends State<RememberingGame> {
                                               correctVerses.length] ==
                                           e) {
                                         setState(() {
-                                          unorderedVerses.remove(e);
+                                          while(unorderedVerses.contains(e)) unorderedVerses.remove(e);
                                           correctVerses.add(e);
                                         });
                                       }
