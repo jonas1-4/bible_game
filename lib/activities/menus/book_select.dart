@@ -63,7 +63,6 @@ class _BookSelectState extends State<BookSelect> {
               color: Colorthemes.background[theme],
               child: Column(
                 children: [
-
                   Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: TextField(
@@ -77,8 +76,8 @@ class _BookSelectState extends State<BookSelect> {
                       
                     ),
                   ),
-                  Container(
-                    height: constrains.maxHeight - 73, // 73 because of the TextField
+                  Expanded(
+                      flex: 1,
                     child: ListView.builder(
                         itemCount: _booksResult.length,
                         itemBuilder: (context, index) {

@@ -60,38 +60,40 @@ class VerseSelect extends StatelessWidget {
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(20, 30, 20, 30),
-                              child: Column(
-                                children: [
-                                  Text('Verse ${index + 1}',
-                                      style: TextStyle(
-                                          color: Colorthemes.foreground[theme],
-                                          fontSize: 16)),
-                                  Expanded(child: Container()),
+                            child: Column(
+                              children: [
+                                Expanded(child: Container()),
+                                Text('Verse ${index + 1}',
+                                    style: TextStyle(
+                                        color: Colorthemes.foreground[theme],
+                                        fontSize: 16)),
+                                Expanded(child: Container()),
 
-                                  // Is a loop worth it?
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.star_outline,
-                                        color: Colorthemes.foreground[theme],
-                                      ),
-                                      Expanded(child: Container()),
-                                      Icon(
-                                        Icons.star_outline,
-                                        color: Colorthemes.foreground[theme],
-                                      ),
-                                      Expanded(child: Container()),
-                                      Icon(
-                                        Icons.star_outline,
-                                        color: Colorthemes.foreground[theme],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                // Is a loop worth it?
+                                Row(
+                                  children: [
+                                    Expanded(flex: 2, child: Container()),
+                                    Icon(
+                                      Icons.star_outline,
+                                      color: Colorthemes.foreground[theme],
+                                    ),
+                                    Expanded(child: Container()),
+                                    Icon(
+                                      Icons.star_outline,
+                                      color: Colorthemes.foreground[theme],
+                                    ),
+                                    Expanded(child: Container()),
+                                    Icon(
+                                      Icons.star_outline,
+                                      color: Colorthemes.foreground[theme],
+                                    ),
+                                    Expanded(
+                                        flex: 2,
+                                        child: Container()),
+                                  ],
+                                ),
+                                Expanded(child: Container()),
+                              ],
                             ),
                           ),
                         );
