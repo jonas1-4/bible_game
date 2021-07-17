@@ -1,6 +1,7 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
+import 'package:bible_game/ui/widgets/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +10,18 @@ import 'package:flutter/rendering.dart';
 import '../../main.dart';
 import '../game.dart';
 
-class Homescreen extends StatelessWidget {
+class Homescreen extends StatefulWidget {
+
+  @override
+  _HomescreenState createState() => _HomescreenState();
+}
+
+class _HomescreenState extends State<Homescreen> {
+
+  void refresh(){
+    setState(() {
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +38,7 @@ class Homescreen extends StatelessWidget {
               )),
           centerTitle: true,
         ),
+        drawer: HomeScreenDrawer(setParentState: refresh),
         body: LayoutBuilder(builder: (context, constrains) {
           return Container(
             height: constrains.maxHeight,

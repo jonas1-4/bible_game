@@ -14,7 +14,7 @@ void main() async{
   //needed for async main
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs().init();
-  bible = await JsonService().getJson('assets/de_schlachter.json');
+  bible = await JsonService().getJson('assets/$currentTranslation');
   runApp(MaterialApp(
     initialRoute: homescreenPath,
     routes: {
