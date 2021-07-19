@@ -50,7 +50,8 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
             child: SafeArea(
                 child: Column(children: [
               Expanded(
-                child: ListView(padding: EdgeInsets.zero, children: [
+                child: ListView(padding: EdgeInsets.all(10)
+                    , children: [
                   DrawerHeader(
                     child: ColorFiltered(
                         child: Image.asset('assets/MenuDrawing.png',
@@ -60,17 +61,22 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                     decoration:
                         BoxDecoration(color: Colorthemes.background[theme]),
                   ),
-                  if(translations.isNotEmpty)  DropdownButton<String>(
-                      hint: Text(currentTranslation),
-                      
-                      dropdownColor: Colorthemes.backgroundlight[theme],
-                    items: translations.map((String value) {
-                      return DropdownMenuItem<String>(
-                        value: value,
-                        child: new Text(value),
-                      );
-                    }).toList(),
-                    onChanged: (_) {},
+                  if(translations.isNotEmpty)  Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      DropdownButton<String>(
+                          hint: Text(currentTranslation.substring(0,currentTranslation.length-5), style: TextStyle(color: Colorthemes.foreground[theme])),
+                          
+                          dropdownColor: Colorthemes.backgroundlight[theme],
+                        items: translations.map((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: new Text(value, style: TextStyle(color: Colorthemes.foreground[theme])),
+                          );
+                        }).toList(),
+                        onChanged: (_) {},
+                      ),
+                    ],
                   )
                 ]),
               )
