@@ -22,8 +22,8 @@ class HomeScreenDrawer extends StatefulWidget {
 
 class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
   Directory bibles = Directory('assets/json');
-  List<String> translations = [];
   List<dynamic> indexJson = [];
+  List<String> translations = [];
   int index = -1;
 
   getbibles() async {
@@ -62,6 +62,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                         BoxDecoration(color: Colorthemes.background[theme]),
                   ),
                   DrawerDropDown(
+                      name: 'Language:',
                       hint: currentTranslation,
                       items: translations,
                       onTap: (int index, String value) async {
@@ -77,13 +78,22 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                         print(index.toString()+value);
                         setState(() {});
                       }),
-                  //DrawerDropDown(
-                  //    hint: currentBible,
-                  //    items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
-                  //        ['versions'],
-                  //    spString: spBibleVersionName,
-                  //    spInt: spBibleVersionIndex,
-                  //    bibleJson: indexJson),
+                  DrawerDropDown(
+                      name: 'Bible Version: ',
+                      hint: currentBible,
+                      items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
+                          ['versions'],
+                      onTap: (int index, String value) async {
+                        SharedPrefs().setSpInt(spBibleVersionIndex, index);
+                        SharedPrefs().setSpStr(spBibleVersionName,
+                            indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['name']);
+                        SharedPrefs().setSpStr(spBibleVersionJson,
+                            indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['abbreviation']);
+                        bible = await JsonService().getJson(
+                            'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+                        print(index.toString()+value);
+                        setState(() {});
+                      }),
                 ]),
               )
             ]))));
@@ -103,12 +113,13 @@ class DrawerDropDown extends StatelessWidget {
   const DrawerDropDown({
     Key? key,
     required this.hint,
+    required this.name,
     required this.items,
     required this.onTap,
   }) : super(key: key);
 
-  final String hint;
-  final List<String> items;
+  final String hint, name;
+  final List items;
   final Function onTap;
 
   @override
@@ -116,29 +127,35 @@ class DrawerDropDown extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Text('Bible Version:',
+        Text(name,
             style: TextStyle(color: Colorthemes.foreground[theme])),
         Expanded(child: Container()),
         (items.length > 1)
-            ? DropdownButton<String>(
+            ? DropdownButton(
                 underline: Container(),
                 menuMaxHeight: 300,
                 hint: Text(hint,
                     style: TextStyle(color: Colorthemes.foreground[theme])),
                 dropdownColor: Colorthemes.backgroundlight[theme],
-                items: items.map((String value) {
+                items: items.map((value) {
+                  String valueStr;
+                  if(value.runtimeType == String){
+                    valueStr = value;
+                  }else{
+                    valueStr = value['name'];
+                  }
                   return DropdownMenuItem<String>(
                       onTap: () {
-                        onTap(items.indexOf(value), value);
+                        onTap(items.indexOf(value), valueStr);
                       },
-                      value: value,
-                      child: Text(value,
+                      value: valueStr,
+                      child: Text(valueStr,
                           style:
                               TextStyle(color: Colorthemes.foreground[theme])));
                 }).toList(),
                 onChanged: (_) {},
               )
-            : Text(hint),
+            : Text(hint, style: TextStyle(color: Colorthemes.foreground[theme])),
       ],
     );
   }
