@@ -23,26 +23,27 @@ class HomeScreenDrawer extends StatefulWidget {
 class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
   Directory bibles = Directory('assets/json');
   List<String> translations = [];
+  List<dynamic> indexJson = [];
+  int index = -1;
 
   getbibles() async {
-    dynamic translationsJson = await JsonService().getJson('assets/json/index.json');
-    print(translationsJson);
-    for(var i in translationsJson){
+    indexJson = await JsonService().getJson('assets/json/index.json');
+    for (var i in indexJson) {
       translations.add(i['language']);
     }
-    print(translations);
     setState(() {});
   }
 
-  @override 
+  @override
   void initState() {
     getbibles();
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
+    String currentTranslation = SharedPrefs().getSpStr(spLanguage);
+    String currentBible = SharedPrefs().getSpStr(spBibleVersionName);
     SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
     return Drawer(
         child: Container(
@@ -50,8 +51,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
             child: SafeArea(
                 child: Column(children: [
               Expanded(
-                child: ListView(padding: EdgeInsets.all(10)
-                    , children: [
+                child: ListView(padding: EdgeInsets.all(10), children: [
                   DrawerHeader(
                     child: ColorFiltered(
                         child: Image.asset('assets/MenuDrawing.png',
@@ -61,23 +61,29 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                     decoration:
                         BoxDecoration(color: Colorthemes.background[theme]),
                   ),
-                  if(translations.isNotEmpty)  Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      DropdownButton<String>(
-                          hint: Text(currentTranslation.substring(0,currentTranslation.length-5), style: TextStyle(color: Colorthemes.foreground[theme])),
-                          
-                          dropdownColor: Colorthemes.backgroundlight[theme],
-                        items: translations.map((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: new Text(value, style: TextStyle(color: Colorthemes.foreground[theme])),
-                          );
-                        }).toList(),
-                        onChanged: (_) {},
-                      ),
-                    ],
-                  )
+                  DrawerDropDown(
+                      hint: currentTranslation,
+                      items: translations,
+                      onTap: (int index, String value) async {
+                        SharedPrefs().setSpStr(spLanguage, value);
+                        SharedPrefs().setSpInt(spLanguageIndex, index);
+                        SharedPrefs().setSpInt(spBibleVersionIndex, 0);
+                        SharedPrefs().setSpStr(spBibleVersionName,
+                            indexJson[index]['versions'][0]['name']);
+                        SharedPrefs().setSpStr(spBibleVersionJson,
+                            indexJson[index]['versions'][0]['abbreviation']);
+                        bible = await JsonService().getJson(
+                            'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+                        print(index.toString()+value);
+                        setState(() {});
+                      }),
+                  //DrawerDropDown(
+                  //    hint: currentBible,
+                  //    items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
+                  //        ['versions'],
+                  //    spString: spBibleVersionName,
+                  //    spInt: spBibleVersionIndex,
+                  //    bibleJson: indexJson),
                 ]),
               )
             ]))));
@@ -92,3 +98,59 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
   //  }
   //}
 }
+
+class DrawerDropDown extends StatelessWidget {
+  const DrawerDropDown({
+    Key? key,
+    required this.hint,
+    required this.items,
+    required this.onTap,
+  }) : super(key: key);
+
+  final String hint;
+  final List<String> items;
+  final Function onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Text('Bible Version:',
+            style: TextStyle(color: Colorthemes.foreground[theme])),
+        Expanded(child: Container()),
+        (items.length > 1)
+            ? DropdownButton<String>(
+                underline: Container(),
+                menuMaxHeight: 300,
+                hint: Text(hint,
+                    style: TextStyle(color: Colorthemes.foreground[theme])),
+                dropdownColor: Colorthemes.backgroundlight[theme],
+                items: items.map((String value) {
+                  return DropdownMenuItem<String>(
+                      onTap: () {
+                        onTap(items.indexOf(value), value);
+                      },
+                      value: value,
+                      child: Text(value,
+                          style:
+                              TextStyle(color: Colorthemes.foreground[theme])));
+                }).toList(),
+                onChanged: (_) {},
+              )
+            : Text(hint),
+      ],
+    );
+  }
+}
+
+
+                                //(translationisJson[index]['versions']
+                                //            .length <
+                                //        2)
+                                //    ?                                   : DropdownButton(
+                                //        items: translationsJson[index]['versions']
+                                //            .map((e) {
+                                //        return DropdownMenuItem(
+                                //            value: e[''], child: Text(e['name']));
+                                //      }).toList()),

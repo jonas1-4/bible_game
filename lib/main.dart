@@ -14,7 +14,16 @@ void main() async{
   //needed for async main
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs().init();
-  bible = await JsonService().getJson('assets/$currentTranslation');
+
+  // TODO Detect Language and set everything automatik
+
+  if(SharedPrefs().getSpStr(spBibleVersionJson).isEmpty){
+    SharedPrefs().setSpStr(spBibleVersionJson, 'en_bbe');
+    SharedPrefs().setSpStr(spLanguage, 'English');
+    SharedPrefs().setSpInt(spLanguageIndex, 4);
+    SharedPrefs().setSpStr(spBibleVersionName, 'Basic English');
+    SharedPrefs().setSpInt(spBibleVersionIndex, 0);
+  }
   runApp(MaterialApp(
     initialRoute: homescreenPath,
     routes: {
