@@ -1,6 +1,7 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/main.dart';
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,8 @@ class EndScreen extends StatefulWidget {
 }
 
 class _EndScreenState extends State<EndScreen> {
-  int stars = 1;
+  int stars = SharedPrefs().getSpInt(
+      spVerseLevel + SharedPrefs().getSpIntList(spSelectedVerse).toString());
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -73,13 +75,14 @@ class _EndScreenState extends State<EndScreen> {
             Expanded(child: Container()),
             Padding(
               padding: const EdgeInsets.all(30.0),
-              child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              child:
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Expanded(
                   child: FittedBox(
                       fit: BoxFit.fitHeight,
                       child: Text('Great',
-                              style:
-                                  TextStyle(color: Colorthemes.foreground[theme]))),
+                          style:
+                              TextStyle(color: Colorthemes.foreground[theme]))),
                 )
               ]),
             ),

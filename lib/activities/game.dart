@@ -1,6 +1,8 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
+import 'package:bible_game/services/game_service.dart';
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,12 +11,6 @@ import '../main.dart';
 import 'menus/after_level.dart';
 
 class RememberingGame extends StatefulWidget {
-  RememberingGame({
-    required this.book,
-    required this.chapter,
-    required this.verse,
-  });
-  final int book, chapter, verse;
 
   @override
   _RememberingGameState createState() => _RememberingGameState();
@@ -25,7 +21,7 @@ class _RememberingGameState extends State<RememberingGame> {
   //orderedVerses     = words in correctOrder
   //correctVerses     = words which are accepted/pressed
   //noDublicateVerses = words in correctOrder but without dublicates
-  //errors            = times a wrong word was clicked/number of hearts 
+  //errors            = times a wrong word was clicked/number of hearts
   List<String> unorderedVerses = [],
       orderedVerses = [],
       correctVerses = [],
@@ -40,8 +36,9 @@ class _RememberingGameState extends State<RememberingGame> {
     print(orderedVerses);
 
     noDublicateVerses = orderedVerses.toSet().toList();
+    List<int> selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     List verses =
-        Bible().getSplitVerse(widget.book, widget.chapter, widget.verse);
+        Bible().getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
     orderedVerses = verses[0];
     unorderedVerses = verses[1];
     noDublicateVerses = orderedVerses.toSet().toList();
@@ -74,28 +71,44 @@ class _RememberingGameState extends State<RememberingGame> {
               color: Colorthemes.background[theme],
               child: Column(
                 children: <Widget>[
-                  (errors < 4) ?
-                  Row(children: [
-                    Expanded(
-                      child: Container(),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Icon((errors < 1)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Icon((errors < 2)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Icon((errors < 3)?Icons.favorite:Icons.favorite_border, color: Colorthemes.accentlight[theme], size: 25),
-                    ),
-                  ]):
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Icon(Icons.favorite_border, color: Colorthemes.background[theme], size: 25),
-                    ),
+                  (errors < 4)
+                      ? Row(children: [
+                          Expanded(
+                            child: Container(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Icon(
+                                (errors < 1)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colorthemes.accentlight[theme],
+                                size: 25),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Icon(
+                                (errors < 2)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colorthemes.accentlight[theme],
+                                size: 25),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Icon(
+                                (errors < 3)
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: Colorthemes.accentlight[theme],
+                                size: 25),
+                          ),
+                        ])
+                      : Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Icon(Icons.favorite_border,
+                              color: Colorthemes.background[theme], size: 25),
+                        ),
                   SizedBox(height: 20),
                   Expanded(
                     flex: 1,
@@ -142,21 +155,19 @@ class _RememberingGameState extends State<RememberingGame> {
                                             unorderedVerses.remove(e);
                                           correctVerses.add(e);
                                         });
-                                      if (correctVerses.length ==
-                                          noDublicateVerses.length) {
-                                        if(errors < 4){
-
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) => new EndScreen(
-                                        )));
-                                          print('krass');
+                                        if (correctVerses.length ==
+                                            noDublicateVerses.length) {
+                                          if (errors < 4) {
+                                            GameService().increaseLevel();
+                                            Navigator.push(
+                                                context,
+                                                new MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        new EndScreen()));
+                                          }
                                         }
-                                        print('baby');
-                                      }
-                                      }else{
-                                        setState((){
+                                      } else {
+                                        setState(() {
                                           errors++;
                                         });
                                       }

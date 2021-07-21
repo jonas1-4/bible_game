@@ -1,10 +1,10 @@
 import 'package:bible_game/activities/menus/verse_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 
 class ChapterSelect extends StatelessWidget {
   ChapterSelect({required this.book});
@@ -34,6 +34,12 @@ class ChapterSelect extends StatelessWidget {
                   child: ListView.builder(
                       itemCount: bible[book]['chapters'].length,
                       itemBuilder: (context, index) {
+                        int chapterLevel = SharedPrefs().getSpInt(
+                            spChapterLevel +
+                                'book' +
+                                book.toString() +
+                                'chapter' +
+                                index.toString());
                         return Padding(
                           padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                           child: Column(
@@ -46,20 +52,25 @@ class ChapterSelect extends StatelessWidget {
                                       primary:
                                           Colorthemes.backgroundlight[theme]),
                                   onPressed: () {
-                                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new VerseSelect(book: book, chapter: index)));
+                                    Navigator.push(
+                                        context,
+                                        new MaterialPageRoute(
+                                            builder: (context) =>
+                                                new VerseSelect(
+                                                    book: book,
+                                                    chapter: index)));
                                   },
                                   child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      
                                       Text('Chapter ${index + 1}',
                                           style: TextStyle(
-                                              color: Colorthemes
-                                                  .foreground[theme],
+                                              color:
+                                                  Colorthemes.foreground[theme],
                                               fontSize: 16)),
                                       Expanded(child: Container()),
-                                      Text('0/${bible[book]['chapters'][index].length}')
+                                      Text(
+                                          '$chapterLevel/${bible[book]['chapters'][index].length}')
                                     ],
                                   )),
                             ],

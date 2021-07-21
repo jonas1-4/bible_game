@@ -10,25 +10,25 @@ import 'activities/menus/homescreen.dart';
 const String homescreenPath = '/homescreen';
 const String bookSelectPath = '/bookselect';
 
-void main() async{
+void main() async {
   //needed for async main
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPrefs().init();
 
   // TODO Detect Language and set everything automatik
 
-  if(SharedPrefs().getSpStr(spBibleVersionJson).isEmpty){
+  if (SharedPrefs().getSpStr(spBibleVersionJson).isEmpty) {
     SharedPrefs().setSpStr(spBibleVersionJson, 'en_bbe');
     SharedPrefs().setSpStr(spLanguage, 'English');
     SharedPrefs().setSpInt(spLanguageIndex, 4);
     SharedPrefs().setSpStr(spBibleVersionName, 'Basic English');
     SharedPrefs().setSpInt(spBibleVersionIndex, 0);
   }
-  runApp(MaterialApp(
-    initialRoute: homescreenPath,
-    routes: {
-      homescreenPath: (context) => Homescreen(),
-      bookSelectPath: (context) => BookSelect(),
-    }
-  ));
+
+  bible = await JsonService().getJson(
+      'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+  runApp(MaterialApp(initialRoute: homescreenPath, routes: {
+    homescreenPath: (context) => Homescreen(),
+    bookSelectPath: (context) => BookSelect(),
+  }));
 }

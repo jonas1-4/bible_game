@@ -11,21 +11,18 @@ import '../../main.dart';
 import '../game.dart';
 
 class Homescreen extends StatefulWidget {
-
   @override
   _HomescreenState createState() => _HomescreenState();
 }
 
 class _HomescreenState extends State<Homescreen> {
-
-  void refresh(){
-    setState(() {
-    });
+  void refresh() {
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    final List<int> lastVerse = SharedPrefs().getSpIntList(spLastVerse);
+    final List<int> lastVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colorthemes.background[theme],
@@ -70,11 +67,7 @@ class _HomescreenState extends State<Homescreen> {
                                     context,
                                     new MaterialPageRoute(
                                         builder: (context) =>
-                                            new RememberingGame(
-                                              book: lastVerse[0],
-                                              chapter: lastVerse[1],
-                                              verse: lastVerse[2],
-                                            )));
+                                            new RememberingGame()));
                               },
                               child: MenuCard(titletext: 'Fortfahren'),
                             ),

@@ -43,20 +43,18 @@ class VerseSelect extends StatelessWidget {
                       ),
                       itemCount: bible[book]['chapters'][chapter].length,
                       itemBuilder: (context, index) {
+                        List<int> verse = [book, chapter, index];
+                        int verseLevel = SharedPrefs().getSpInt(spVerseLevel + verse.toString());
+
                         return InkWell(
                           onTap: () {
-                            List verses =
-                                Bible().getSplitVerse(book, chapter, index);
                             SharedPrefs().setSpIntList(
-                                spLastVerse, [book, chapter, index]);
+                                spSelectedVerse, verse);
                             Navigator.push(
                                 context,
                                 new MaterialPageRoute(
-                                    builder: (context) => new RememberingGame(
-                                          book: book,
-                                          chapter: chapter,
-                                          verse: index,
-                                        )));
+                                    builder: (context) =>
+                                        new RememberingGame()));
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
@@ -74,22 +72,20 @@ class VerseSelect extends StatelessWidget {
                                   children: [
                                     Expanded(flex: 2, child: Container()),
                                     Icon(
-                                      Icons.star_outline,
-                                      color: Colorthemes.foreground[theme],
+                                      (verseLevel > 0)? Icons.star : Icons.star_outline,
+                                      color: (verseLevel > 0)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
                                     ),
                                     Expanded(child: Container()),
                                     Icon(
-                                      Icons.star_outline,
-                                      color: Colorthemes.foreground[theme],
+                                      (verseLevel > 1)? Icons.star : Icons.star_outline,
+                                      color: (verseLevel > 1)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
                                     ),
                                     Expanded(child: Container()),
                                     Icon(
-                                      Icons.star_outline,
-                                      color: Colorthemes.foreground[theme],
+                                      (verseLevel > 2)? Icons.star : Icons.star_outline,
+                                      color: (verseLevel > 2)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
                                     ),
-                                    Expanded(
-                                        flex: 2,
-                                        child: Container()),
+                                    Expanded(flex: 2, child: Container()),
                                   ],
                                 ),
                                 Expanded(child: Container()),
