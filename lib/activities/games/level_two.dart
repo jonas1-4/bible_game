@@ -1,3 +1,5 @@
+
+import 'package:bible_game/activities/menus/after_level.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
@@ -7,16 +9,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../main.dart';
-import 'menus/after_level.dart';
+import '../../main.dart';
 
-class RememberingGame extends StatefulWidget {
+
+class GameLevelOne extends StatefulWidget {
 
   @override
-  _RememberingGameState createState() => _RememberingGameState();
+  _GameLevelOneState createState() => _GameLevelOneState();
 }
 
-class _RememberingGameState extends State<RememberingGame> {
+class _GameLevelOneState extends State<GameLevelOne> {
   //unorderedVerses   = bottom words shuffled
   //orderedVerses     = words in correctOrder
   //correctVerses     = words which are accepted/pressed

@@ -54,7 +54,7 @@ class VerseSelect extends StatelessWidget {
                                 context,
                                 new MaterialPageRoute(
                                     builder: (context) =>
-                                        new RememberingGame()));
+                                        new gameLevelOne()));
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
