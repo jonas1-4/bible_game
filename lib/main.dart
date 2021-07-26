@@ -27,7 +27,7 @@ void main() async {
 
   bible = await JsonService().getJson(
       'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
-  runApp(MaterialApp(initialRoute: homescreenPath, routes: {
+  runApp(MaterialApp(initialRoute: homescreenPath, debugShowCheckedModeBanner: false, routes: {
     homescreenPath: (context) => Homescreen(),
     bookSelectPath: (context) => BookSelect(),
   }));

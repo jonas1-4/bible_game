@@ -10,9 +10,7 @@ import 'package:flutter/rendering.dart';
 
 import '../../main.dart';
 
-
 class GameLevelOne extends StatefulWidget {
-
   @override
   _GameLevelOneState createState() => _GameLevelOneState();
 }
@@ -38,11 +36,16 @@ class _GameLevelOneState extends State<GameLevelOne> {
 
     noDublicateVerses = orderedVerses.toSet().toList();
     List<int> selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
-    List verses =
-        Bible().getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
+    List verses = Bible()
+        .getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
     orderedVerses = verses[0];
     unorderedVerses = verses[1];
     noDublicateVerses = orderedVerses.toSet().toList();
+
+    while (unorderedVerses.length > orderedVerses.length * 0.8) {
+      correctVerses.add(unorderedVerses[0]);
+      unorderedVerses.removeAt(0);
+    }
   }
 
   @override
@@ -160,11 +163,11 @@ class _GameLevelOneState extends State<GameLevelOne> {
                                             noDublicateVerses.length) {
                                           if (errors < 4) {
                                             GameService().increaseLevel();
-                                            Navigator.push(
-                                                context,
-                                                new MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        new EndScreen()));
+                                            //Navigator.push(
+                                            //    context,
+                                            //    new MaterialPageRoute(
+                                            //        builder: (context) =>
+                                            //            new EndScreen()));
                                           }
                                         }
                                       } else {

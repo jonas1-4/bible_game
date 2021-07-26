@@ -1,4 +1,3 @@
-
 import 'package:bible_game/activities/menus/after_level.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
@@ -11,9 +10,7 @@ import 'package:flutter/rendering.dart';
 
 import '../../main.dart';
 
-
 class GameLevelOne extends StatefulWidget {
-
   @override
   _GameLevelOneState createState() => _GameLevelOneState();
 }
@@ -39,11 +36,10 @@ class _GameLevelOneState extends State<GameLevelOne> {
 
     noDublicateVerses = orderedVerses.toSet().toList();
     List<int> selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
-    List verses =
-        Bible().getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
+    List verses = Bible()
+        .getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
     orderedVerses = verses[0];
     unorderedVerses = verses[1];
-    noDublicateVerses = orderedVerses.toSet().toList();
   }
 
   @override
@@ -112,83 +108,51 @@ class _GameLevelOneState extends State<GameLevelOne> {
                               color: Colorthemes.background[theme], size: 25),
                         ),
                   SizedBox(height: 20),
-                  Expanded(
-                    flex: 1,
-                    child: Wrap(
-                        children: orderedVerses.map((e) {
-                      return InkWell(
-                          child: Container(
-                              margin: EdgeInsets.all(3),
-                              child: Chip(
-                                  backgroundColor: (!correctVerses.contains(e))
-                                      ? Colorthemes.backgroundlight[theme]
-                                      : Colorthemes.backgroundlight[theme],
-                                  shadowColor:
-                                      Colorthemes.backgroundlight[theme],
-                                  label: Text(
-                                    e,
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      color: (!correctVerses.contains(e))
-                                          ? Colorthemes.backgroundlight[theme]
-                                          : Colorthemes.foreground[theme],
-                                    ),
-                                  ))));
-                    }).toList()),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Container(
-                        alignment: Alignment.bottomCenter,
+                  Column(
+                    children: [
+                      Expanded(
+                        flex: 1,
                         child: Wrap(
-                          alignment: WrapAlignment.start,
-                          crossAxisAlignment: WrapCrossAlignment.end,
-                          children: unorderedVerses.map((e) {
-                            return InkWell(
+                            children: orderedVerses.map((e) {
+                          return InkWell(
                               child: Container(
                                   margin: EdgeInsets.all(3),
-                                  child: InkWell(
-                                    onTap: () {
-                                      if (noDublicateVerses[
-                                              correctVerses.length] ==
-                                          e) {
-                                        setState(() {
-                                          while (unorderedVerses.contains(e))
-                                            unorderedVerses.remove(e);
-                                          correctVerses.add(e);
-                                        });
-                                        if (correctVerses.length ==
-                                            noDublicateVerses.length) {
-                                          if (errors < 4) {
-                                            GameService().increaseLevel();
-                                            Navigator.push(
-                                                context,
-                                                new MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        new EndScreen()));
-                                          }
-                                        }
-                                      } else {
-                                        setState(() {
-                                          errors++;
-                                        });
-                                      }
-                                    },
-                                    child: Chip(
-                                        backgroundColor:
-                                            Colorthemes.backgroundlight[theme],
-                                        shadowColor:
-                                            Colorthemes.backgroundlight[theme],
-                                        label: Text(e,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colorthemes
-                                                    .foreground[theme]))),
-                                  )),
-                            );
-                          }).toList(),
-                        ),
-                      ))
+                                  child: Chip(
+                                      backgroundColor: (!correctVerses
+                                              .contains(e))
+                                          ? Colorthemes.backgroundlight[theme]
+                                          : Colorthemes.backgroundlight[theme],
+                                      shadowColor:
+                                          Colorthemes.backgroundlight[theme],
+                                      label: Text(
+                                        e,
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: (!correctVerses.contains(e))
+                                              ? Colorthemes
+                                                  .backgroundlight[theme]
+                                              : Colorthemes.foreground[theme],
+                                        ),
+                                      ))));
+                        }).toList()),
+                      ),
+                      OrderChipsGame(
+                          bottomList: unorderedVerses,
+                          topList: correctVerses,
+                          onWrong: () {
+                            setState() {
+                              errors++;
+                            }
+                          },
+                          onAllCorrect: () {
+                            GameService().increaseLevel();
+                            Navigator.push(
+                                context,
+                                new MaterialPageRoute(
+                                    builder: (context) => new EndScreen()));
+                          })
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -196,5 +160,81 @@ class _GameLevelOneState extends State<GameLevelOne> {
         ),
       ),
     );
+  }
+}
+
+class OrderChipsGame extends StatefulWidget {
+  const OrderChipsGame({
+    Key? key,
+    required this.bottomList,
+    required this.topList,
+    required this.onWrong,
+    required this.onAllCorrect,
+  }) : super(key: key);
+
+  final List<String> topList;
+  final List<String> bottomList;
+  final Function onWrong;
+  final Function onAllCorrect;
+
+  @override
+  _OrderChipsGameState createState() => _OrderChipsGameState();
+}
+
+class _OrderChipsGameState extends State<OrderChipsGame> {
+  List<String> noDublicateVerses = [], bottomList = [], topList = [];
+  int errors = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    noDublicateVerses = widget.topList.toSet().toList();
+    bottomList = widget.bottomList;
+    topList = widget.topList;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+        flex: 1,
+        child: Container(
+          alignment: Alignment.bottomCenter,
+          child: Wrap(
+            alignment: WrapAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.end,
+            children: widget.bottomList.map((e) {
+              return InkWell(
+                child: Container(
+                    margin: EdgeInsets.all(3),
+                    child: InkWell(
+                      onTap: () {
+                        if (noDublicateVerses[widget.topList.length] == e) {
+                          setState(() {
+                            while (bottomList.contains(e)) bottomList.remove(e);
+                            topList.add(e);
+                          });
+                          if (widget.topList.length ==
+                              noDublicateVerses.length) {
+                            if (errors < 4) {
+                              widget.onAllCorrect();
+                            }
+                          }
+                        } else {
+                          errors++;
+                          widget.onWrong();
+                        }
+                      },
+                      child: Chip(
+                          backgroundColor: Colorthemes.backgroundlight[theme],
+                          shadowColor: Colorthemes.backgroundlight[theme],
+                          label: Text(e,
+                              style: TextStyle(
+                                  fontSize: 16,
+                                  color: Colorthemes.foreground[theme]))),
+                    )),
+              );
+            }).toList(),
+          ),
+        ));
   }
 }

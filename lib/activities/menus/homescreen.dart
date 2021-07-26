@@ -1,3 +1,4 @@
+import 'package:bible_game/activities/games/level_one.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
@@ -8,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
 import '../../main.dart';
-import '../game.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -67,7 +67,7 @@ class _HomescreenState extends State<Homescreen> {
                                     context,
                                     new MaterialPageRoute(
                                         builder: (context) =>
-                                            new gameLevelOne()));
+                                            new GameLevelOne()));
                               },
                               child: MenuCard(titletext: 'Fortfahren'),
                             ),

@@ -1,14 +1,11 @@
+import 'package:bible_game/activities/games/level_one.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:bible_game/services/bible.dart';
 import 'package:bible_game/services/shared_prefs.dart';
-import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-import '../../main.dart';
-import '../game.dart';
 
 class VerseSelect extends StatelessWidget {
   VerseSelect({required this.book, required this.chapter});
@@ -54,7 +51,7 @@ class VerseSelect extends StatelessWidget {
                                 context,
                                 new MaterialPageRoute(
                                     builder: (context) =>
-                                        new gameLevelOne()));
+                                        new GameLevelOne()));
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
