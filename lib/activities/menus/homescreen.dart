@@ -1,6 +1,7 @@
 import 'package:bible_game/activities/games/level_one.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
+import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/widgets/homescreen_drawer/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
@@ -62,13 +63,7 @@ class _HomescreenState extends State<Homescreen> {
                         children: <Widget>[
                           if (lastVerse.isNotEmpty)
                             InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                    context,
-                                    new MaterialPageRoute(
-                                        builder: (context) =>
-                                            new GameLevelOne()));
-                              },
+                              onTap: () => GameService().levelSelect(context),
                               child: MenuCard(titletext: 'Fortfahren'),
                             ),
                           InkWell(

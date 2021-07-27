@@ -13,12 +13,12 @@ import 'package:flutter/rendering.dart';
 
 import '../../main.dart';
 
-class GameLevelTwo extends StatefulWidget {
+class GameLevelThree extends StatefulWidget {
   @override
-  _GameLevelTwoState createState() => _GameLevelTwoState();
+  _GameLevelThreeState createState() => _GameLevelThreeState();
 }
 
-class _GameLevelTwoState extends State<GameLevelTwo> {
+class _GameLevelThreeState extends State<GameLevelThree> {
   int errors = 0;
   List<String> verse = [];
 
@@ -103,6 +103,7 @@ class _GameLevelTwoState extends State<GameLevelTwo> {
                         ),
                   SizedBox(height: 20),
                   OrderChipsGame(
+                      firstLetter: true,
                       itemList: verse,
                       onWrong: madeError,
                       onAllCorrect: () {

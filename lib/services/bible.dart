@@ -11,12 +11,9 @@ class Bible {
     return books;
   }
   
-  //returns an ordered and an unordered List of an Splitted Bible verse
-  List<List<String>> getSplitVerse(int book, int chapter, int verseString){
-    // cant as
-    List<String> verseOrdered = bible[book]['chapters'][chapter][verseString].split(' ');
-    List<String> verse = bible[book]['chapters'][chapter][verseString].split(' ')
-    ..shuffle();
-    return [verseOrdered, verse,];
+  //returns an ordered List of an Splitted Bible verse
+  List<String> getSplitVerse(int book, int chapter, int verseString){
+    List<String> verse= bible[book]['chapters'][chapter][verseString].split(' ');
+    return verse;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bible_game/activities/games/level_one.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
+import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -47,11 +48,7 @@ class VerseSelect extends StatelessWidget {
                           onTap: () {
                             SharedPrefs().setSpIntList(
                                 spSelectedVerse, verse);
-                            Navigator.push(
-                                context,
-                                new MaterialPageRoute(
-                                    builder: (context) =>
-                                        new GameLevelOne()));
+                            GameService().levelSelect(context);
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],
