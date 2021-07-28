@@ -3,10 +3,10 @@ import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
+import 'package:bible_game/ui/icon_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 
 class VerseSelect extends StatelessWidget {
   VerseSelect({required this.book, required this.chapter});
@@ -21,7 +21,7 @@ class VerseSelect extends StatelessWidget {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Verse',
+                'Vers',
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -42,12 +42,12 @@ class VerseSelect extends StatelessWidget {
                       itemCount: bible[book]['chapters'][chapter].length,
                       itemBuilder: (context, index) {
                         List<int> verse = [book, chapter, index];
-                        int verseLevel = SharedPrefs().getSpInt(spVerseLevel + verse.toString());
+                        int verseLevel = SharedPrefs()
+                            .getSpInt(spVerseLevel + verse.toString());
 
                         return InkWell(
                           onTap: () {
-                            SharedPrefs().setSpIntList(
-                                spSelectedVerse, verse);
+                            SharedPrefs().setSpIntList(spSelectedVerse, verse);
                             GameService().levelSelect(context);
                           },
                           child: Container(
@@ -55,32 +55,19 @@ class VerseSelect extends StatelessWidget {
                             child: Column(
                               children: [
                                 Expanded(child: Container()),
-                                Text('Verse ${index + 1}',
+                                Text('Vers ${index + 1}',
                                     style: TextStyle(
                                         color: Colorthemes.foreground[theme],
                                         fontSize: 16)),
                                 Expanded(child: Container()),
-
-                                // Is a loop worth it?
-                                Row(
-                                  children: [
-                                    Expanded(flex: 2, child: Container()),
-                                    Icon(
-                                      (verseLevel > 0)? Icons.star : Icons.star_outline,
-                                      color: (verseLevel > 0)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
-                                    ),
-                                    Expanded(child: Container()),
-                                    Icon(
-                                      (verseLevel > 1)? Icons.star : Icons.star_outline,
-                                      color: (verseLevel > 1)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
-                                    ),
-                                    Expanded(child: Container()),
-                                    Icon(
-                                      (verseLevel > 2)? Icons.star : Icons.star_outline,
-                                      color: (verseLevel > 2)? Colorthemes.accent[theme] : Colorthemes.foreground[theme],
-                                    ),
-                                    Expanded(flex: 2, child: Container()),
-                                  ],
+                                IconRow(
+                                  conditionInt: verseLevel,
+                                  iconIf: Icons.star,
+                                  iconIfNot: Icons.star_outline,
+                                  expand: true,
+                                  outSideFlex: 3,
+                                  plus: false,
+                                  condition: (int condition, int i) => condition > i,
                                 ),
                                 Expanded(child: Container()),
                               ],

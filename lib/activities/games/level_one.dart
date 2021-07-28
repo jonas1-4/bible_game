@@ -4,6 +4,7 @@ import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
+import 'package:bible_game/ui/icon_row.dart';
 import 'package:bible_game/ui/widgets/order_chips_game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -63,38 +64,12 @@ class _GameLevelOneState extends State<GameLevelOne> {
               child: Column(
                 children: <Widget>[
                   (errors < 4)
-                      ? Row(children: [
-                          Expanded(
-                            child: Container(),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Icon(
-                                (errors < 1)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Colorthemes.accentlight[theme],
-                                size: 25),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Icon(
-                                (errors < 2)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Colorthemes.accentlight[theme],
-                                size: 25),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Icon(
-                                (errors < 3)
-                                    ? Icons.favorite
-                                    : Icons.favorite_border,
-                                color: Colorthemes.accentlight[theme],
-                                size: 25),
-                          ),
-                        ])
+                      ? IconRow(
+                          condition: (int condition, int i) => condition <= i,
+                          conditionInt: errors,
+                          iconIf: Icons.favorite,
+                          leftRightMiddle: 0,
+                          iconIfNot: Icons.favorite_border)
                       : Padding(
                           padding: const EdgeInsets.all(3.0),
                           child: Icon(Icons.favorite_border,

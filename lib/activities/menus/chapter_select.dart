@@ -19,7 +19,7 @@ class ChapterSelect extends StatelessWidget {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Chapter',
+                'Kapitel',
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -63,7 +63,7 @@ class ChapterSelect extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text('Chapter ${index + 1}',
+                                      Text('Kapitel ${index + 1}',
                                           style: TextStyle(
                                               color:
                                                   Colorthemes.foreground[theme],

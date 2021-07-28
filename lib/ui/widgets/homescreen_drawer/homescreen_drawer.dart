@@ -65,7 +65,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                         BoxDecoration(color: Colorthemes.background[theme]),
                   ),
                   DrawerDropDown(
-                      name: 'Language:',
+                      name: 'Sprache:',
                       hint: currentTranslation,
                       items: translations,
                       onTap: (int index, String value) async {
@@ -82,7 +82,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                         setState(() {});
                       }),
                   DrawerDropDown(
-                      name: 'Bible Version: ',
+                      name: 'Übersetzung: ',
                       hint: currentBible,
                       items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
                           ['versions'],

@@ -5,7 +5,6 @@ import 'package:bible_game/services/bible.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 //Thanks to (List Search): https://www.kindacode.com/article/how-to-create-a-filter-search-listview-in-flutter/
 
 class BookSelect extends StatefulWidget {
@@ -53,7 +52,7 @@ class _BookSelectState extends State<BookSelect> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Book',
+                'Buch',
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -68,16 +67,26 @@ class _BookSelectState extends State<BookSelect> {
                     child: TextField(
                       onChanged: (value) => _runFilter(value),
                       decoration: InputDecoration(
-                          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colorthemes.accent[theme])),
-                          enabledBorder:OutlineInputBorder(borderSide: BorderSide(color: Colorthemes.backgroundlight[theme])),
+                          focusedBorder: OutlineInputBorder(
+                              borderSide:
+                                  BorderSide(color: Colorthemes.accent[theme])),
+                          enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colorthemes.backgroundlight[theme])),
                           focusColor: Colorthemes.accent[theme],
                           hoverColor: Colorthemes.accent[theme],
-                          labelText: 'Search', suffixIcon: Icon(Icons.search, color: Colorthemes.accent[theme],), labelStyle: TextStyle(color: Colorthemes.accent[theme])),
-                      
+                          labelText: 'Suchen',
+                          suffixIcon: Icon(
+                            Icons.search,
+                            color: Colorthemes.accent[theme],
+                          ),
+                          labelStyle:
+                              TextStyle(color: Colorthemes.accent[theme])),
+                      style: TextStyle(color: Colorthemes.foreground[theme]),
                     ),
                   ),
                   Expanded(
-                      flex: 1,
+                    flex: 1,
                     child: ListView.builder(
                         itemCount: _booksResult.length,
                         itemBuilder: (context, index) {
@@ -85,12 +94,21 @@ class _BookSelectState extends State<BookSelect> {
                             padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                             child: Column(
                               children: [
-                                if (index != 0)  Divider(
-                                    color: Colorthemes.backgroundlight[theme]),
+                                if (index != 0)
+                                  Divider(
+                                      color:
+                                          Colorthemes.backgroundlight[theme]),
                                 TextButton(
-                                    style: TextButton.styleFrom(primary: Colorthemes.backgroundlight[theme]),
+                                    style: TextButton.styleFrom(
+                                        primary:
+                                            Colorthemes.backgroundlight[theme]),
                                     onPressed: () {
-                                      Navigator.push(context, new MaterialPageRoute(builder: (context) => new ChapterSelect(book: index)));
+                                      Navigator.push(
+                                          context,
+                                          new MaterialPageRoute(
+                                              builder: (context) =>
+                                                  new ChapterSelect(
+                                                      book: index)));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
