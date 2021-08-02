@@ -1,7 +1,9 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/main.dart';
+import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
+import 'package:bible_game/ui/icon_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -30,91 +32,87 @@ class _EndScreenState extends State<EndScreen> {
               )),
         ),
         body: Container(
-          color: Colorthemes.background[theme],
-          child: Column(children: [
-            SizedBox(height: 25),
-            Row(children: [
-              Expanded(flex: 2, child: Container()),
-              Expanded(
-                flex: 6,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: (stars >= 0)
-                      ? Icon(Icons.star,
-                          size: 50, color: Colorthemes.accent[theme])
-                      : Icon(Icons.star_outline,
-                          color: Colorthemes.accent[theme]),
-                ),
-              ),
-              Expanded(flex: 1, child: Container()),
-              Expanded(
-                flex: 6,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: (stars >= 0)
-                      ? Icon(Icons.star,
-                          size: 50, color: Colorthemes.accent[theme])
-                      : Icon(Icons.star_outline,
-                          color: Colorthemes.accent[theme]),
-                ),
-              ),
+            color: Colorthemes.background[theme],
+            child: Column(children: [
+              SizedBox(height: 70),
+              IconRow(
+                  size: 80,
+                  conditionInt: stars,
+                  iconIf: Icons.star,
+                  iconIfNot: Icons.star_outline,
+                  condition: (int star, int i) => i < star),
               Expanded(child: Container()),
-              Expanded(
-                flex: 6,
-                child: FittedBox(
-                  fit: BoxFit.fitWidth,
-                  child: (stars >= 0)
-                      ? Icon(Icons.star,
-                          size: 50, color: Colorthemes.accent[theme])
-                      : Icon(Icons.star_outline,
-                          color: Colorthemes.accent[theme]),
-                ),
-              ),
-              Expanded(flex: 2, child: Container()),
-            ]),
-            Expanded(child: Container()),
-            Padding(
-              padding: const EdgeInsets.all(30.0),
-              child:
-                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                Expanded(
-                  child: FittedBox(
-                      fit: BoxFit.fitHeight,
-                      child: Text('Great',
-                          style:
-                              TextStyle(color: Colorthemes.foreground[theme]))),
-                )
-              ]),
-            ),
-            Expanded(child: Container()),
-            Row(children: [
-              Expanded(
-                flex: 1,
-                child: FittedBox(
-                  child: IconButton(
-                    onPressed: () =>
-                        Navigator.popAndPushNamed(context, homescreenPath),
-                    icon:
-                        Icon(Icons.home, color: Colorthemes.foreground[theme]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      IconButtonText(
+                        icon: Icons.arrow_right_alt,
+                        onTap: () => GameService().nextLevel(context),
+                        text: 'Nächstes Level',
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      IconButtonText(
+                        icon: Icons.replay,
+                        onTap: () => GameService().levelSelect(context: context),
+                        text: 'Nochmal',
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      IconButtonText(
+                        icon: Icons.home,
+                        onTap: () =>
+                            Navigator.popAndPushNamed(context, homescreenPath),
+                        text: 'Zum Homescreen',
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
-              Expanded(child: Container()),
-              Expanded(
-                flex: 1,
-                child: FittedBox(
-                  child: IconButton(
-                    onPressed: () =>
-                        Navigator.popAndPushNamed(context, homescreenPath),
-                    icon: Icon(Icons.arrow_right_alt,
-                        color: Colorthemes.foreground[theme]),
-                  ),
-                ),
+              SizedBox(
+                height: 60,
               ),
-            ])
-          ]),
-        ),
+            ])),
       ),
+    );
+  }
+}
+
+class IconButtonText extends StatelessWidget {
+  const IconButtonText({
+    required this.onTap,
+    required this.icon,
+    required this.text,
+    Key? key,
+  }) : super(key: key);
+
+  final Function onTap;
+  final String text;
+  final IconData icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onTap(),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          icon,
+          size: 20,
+          color: Colorthemes.foreground[theme],
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          text,
+          style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
+        ),
+      ]),
     );
   }
 }

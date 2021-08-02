@@ -63,7 +63,7 @@ class _HomescreenState extends State<Homescreen> {
                         children: <Widget>[
                           if (lastVerse.isNotEmpty)
                             InkWell(
-                              onTap: () => GameService().levelSelect(context),
+                              onTap: () => GameService().levelSelect(context: context),
                               child: MenuCard(titletext: 'Fortfahren'),
                             ),
                           InkWell(

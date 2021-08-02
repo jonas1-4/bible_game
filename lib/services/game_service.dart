@@ -6,10 +6,11 @@ import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 
 class GameService {
-  void levelSelect(BuildContext context) {
+  void levelSelect({required BuildContext context, bool replay = false}) {
     List verse = SharedPrefs().getSpIntList(spSelectedVerse);
     String verseStr = verse.toString();
     int currentVerseLevel = SharedPrefs().getSpInt(spVerseLevel + verseStr);
+    if (replay) currentVerseLevel--;
 
     switch (currentVerseLevel) {
       case 0:
@@ -29,6 +30,33 @@ class GameService {
             new MaterialPageRoute(builder: (context) => new GameLevelThree()));
         break;
     }
+  }
+
+  void nextLevel(BuildContext context) {
+    List verseList = SharedPrefs().getSpIntList(spSelectedVerse);
+    String verseStr = verseList.toString();
+    int currentVerseLevel = SharedPrefs().getSpInt(spVerseLevel + verseStr);
+    if (currentVerseLevel < 3) {
+      levelSelect(context: context);
+      return;
+    }
+    int book = verseList[0], chapter = verseList[1], verse = verseList[2];
+
+    if (bible[book]['chapters'][chapter][verse].length - 1 > verse) {
+      verse++;
+    } else {
+      verse = 0;
+      chapter++;
+      if (bible[book]['chapters'][chapter].length - 1 < chapter) {
+        chapter = 0;
+        book++;
+      }
+      if (bible[book]['chapters'].length - 1 < book) {
+        book = 1;
+      }
+    }
+      SharedPrefs().setSpIntList(spSelectedVerse, [book, chapter, verse]);
+      levelSelect(context: context);
   }
 
   void increaseLevel() {

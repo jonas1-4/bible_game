@@ -30,9 +30,7 @@ class OrderChipsGame extends StatefulWidget {
 }
 
 class _OrderChipsGameState extends State<OrderChipsGame> {
-  List<String> bottomList = [],
-      topList = [],
-      checkList = [];
+  List<String> bottomList = [], topList = [], checkList = [];
   int errors = 0, count = 0, percentHidden = 0;
   bool firstLetter = false;
   List<Map<String, bool>> gangGang = [new Map<String, bool>()];
@@ -113,7 +111,8 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                           margin: EdgeInsets.all(3),
                           child: InkWell(
                             onTap: () {
-                              if (checkList[0] == e || (firstLetter && e[0] == checkList[0][0])) {
+                              if (checkList[0] == e ||
+                                  (firstLetter && e[0] == checkList[0][0])) {
                                 setState(() {
                                   bottomList.remove(checkList[0]);
                                   for (Map i in gangGang) {
@@ -139,19 +138,31 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                                 backgroundColor:
                                     Colorthemes.backgroundlight[theme],
                                 shadowColor: Colorthemes.backgroundlight[theme],
-                                label: (!firstLetter) ? Text(e,
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colorthemes.foreground[theme])):RichText(
-  text: new TextSpan(
-    // Note: Styles for TextSpans must be explicitly defined.
-    // Child text spans will inherit styles from parent
-    children: <TextSpan>[
-      new TextSpan(text: e[0],style: TextStyle(color: Colorthemes.foreground[theme])),
-      new TextSpan(text: e.substring(1), style: TextStyle(color: Colorthemes.backgroundlight[theme])),
-    ],
-  ),
- )),
+                                label: (!firstLetter)
+                                    ? Text(e,
+                                        style: TextStyle(
+                                            fontSize: 16,
+                                            color:
+                                                Colorthemes.foreground[theme]))
+                                    : RichText(
+                                        text: new TextSpan(
+                                          // Note: Styles for TextSpans must be explicitly defined.
+                                          // Child text spans will inherit styles from parent
+                                          children: <TextSpan>[
+                                            new TextSpan(
+                                                text: e[0],
+                                                style: TextStyle(
+                                                    color: Colorthemes
+                                                        .foreground[theme])),
+                                            new TextSpan(
+                                                text: e.substring(1),
+                                                style: TextStyle(
+                                                    color: Colorthemes
+                                                            .backgroundlight[
+                                                        theme])),
+                                          ],
+                                        ),
+                                      )),
                           )),
                     );
                   }).toList(),

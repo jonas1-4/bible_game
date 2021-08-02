@@ -48,7 +48,8 @@ class VerseSelect extends StatelessWidget {
                         return InkWell(
                           onTap: () {
                             SharedPrefs().setSpIntList(spSelectedVerse, verse);
-                            GameService().levelSelect(context);
+                            GameService().levelSelect(context:context);
+                             
                           },
                           child: Container(
                             color: Colorthemes.backgroundlight[theme],

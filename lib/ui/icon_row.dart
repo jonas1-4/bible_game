@@ -14,9 +14,11 @@ class IconRow extends StatelessWidget {
     this.leftRightMiddle = 2,
     this.outSideFlex = 1,
     this.plus = false,
+    this.size = 25,
   }) : super(key: key);
 
   final int conditionInt, number, outSideFlex;
+  final double size;
   final IconData iconIf, iconIfNot;
   final bool expand, plus;
   final int leftRightMiddle;
@@ -33,8 +35,8 @@ class IconRow extends StatelessWidget {
             'i: $i  conditionInt: $i condition: ${condition(conditionInt, i)}');
         children.add(Padding(
           padding: const EdgeInsets.all(3.0),
-          child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot,
-              color: Colorthemes.accentlight[theme], size: 25),
+          child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot, size: size,
+              color: Colorthemes.accentlight[theme]),
         ));
         if (expand)
           children.add(Expanded(
@@ -47,8 +49,8 @@ class IconRow extends StatelessWidget {
             'i: $i  conditionInt: $i condition: ${condition(conditionInt, i)}');
         children.add(Padding(
           padding: const EdgeInsets.all(3.0),
-          child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot,
-              color: Colorthemes.accentlight[theme], size: 25),
+          child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot, size: size,
+              color: Colorthemes.accentlight[theme]),
         ));
         if (expand)
           children.add(Expanded(
