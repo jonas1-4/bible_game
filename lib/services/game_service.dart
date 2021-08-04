@@ -1,6 +1,4 @@
 import 'package:bible_game/activities/games/level_one.dart';
-import 'package:bible_game/activities/games/level_three.dart';
-import 'package:bible_game/activities/games/level_two.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -11,25 +9,12 @@ class GameService {
     String verseStr = verse.toString();
     int currentVerseLevel = SharedPrefs().getSpInt(spVerseLevel + verseStr);
     if (replay) currentVerseLevel--;
-
-    switch (currentVerseLevel) {
-      case 0:
-        Navigator.push(context,
-            new MaterialPageRoute(builder: (context) => new GameLevelOne()));
-        break;
-      case 1:
-        Navigator.push(context,
-            new MaterialPageRoute(builder: (context) => new GameLevelTwo()));
-        break;
-      case 2:
-        Navigator.push(context,
-            new MaterialPageRoute(builder: (context) => new GameLevelThree()));
-        break;
-      default:
-        Navigator.push(context,
-            new MaterialPageRoute(builder: (context) => new GameLevelThree()));
-        break;
-    }
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new GameLevelOne(
+                  level: currentVerseLevel,
+                )));
   }
 
   void nextLevel(BuildContext context) {
@@ -55,8 +40,8 @@ class GameService {
         book = 1;
       }
     }
-      SharedPrefs().setSpIntList(spSelectedVerse, [book, chapter, verse]);
-      levelSelect(context: context);
+    SharedPrefs().setSpIntList(spSelectedVerse, [book, chapter, verse]);
+    levelSelect(context: context);
   }
 
   void increaseLevel() {

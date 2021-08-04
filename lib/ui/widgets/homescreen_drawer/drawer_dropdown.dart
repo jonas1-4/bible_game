@@ -24,7 +24,7 @@ class DrawerDropDown extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(name,
-            style: TextStyle(color: Colorthemes.foreground[theme])),
+            style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 17)),
         Expanded(child: Container()),
         (items.length > 1)
             ? DropdownButton(
@@ -51,7 +51,7 @@ class DrawerDropDown extends StatelessWidget {
                 }).toList(),
                 onChanged: (_) {},
               )
-            : Text(hint, style: TextStyle(color: Colorthemes.foreground[theme])),
+            : Text(hint, style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 17)),
       ],
     );
   }

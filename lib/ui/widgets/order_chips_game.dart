@@ -10,8 +10,8 @@ class OrderChipsGame extends StatefulWidget {
     required this.itemList,
     required this.onWrong,
     required this.onAllCorrect,
+    this.level = 0,
     this.percentHidden = 0,
-    this.firstLetter = false,
   }) : super(key: key);
 
   //unorderedVerses   = bottom words shuffled
@@ -22,8 +22,7 @@ class OrderChipsGame extends StatefulWidget {
   final List<String> itemList;
   final Function onWrong;
   final Function onAllCorrect;
-  final int percentHidden;
-  final bool firstLetter;
+  final int percentHidden, level;
 
   @override
   _OrderChipsGameState createState() => _OrderChipsGameState();
@@ -38,9 +37,21 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
   @override
   void initState() {
     super.initState();
-    percentHidden = widget.percentHidden;
+    switch (widget.level) {
+      case 0:
+        {
+          percentHidden = widget.percentHidden;
+        }
+        break;
+      case 1:
+        break;
+      case 2:
+        {
+          firstLetter = true;
+        }
+        break;
+    }
     topList = widget.itemList;
-    firstLetter = widget.firstLetter;
     bottomList = List.from(topList);
     gangGang.removeAt(0);
     for (String word in topList) {

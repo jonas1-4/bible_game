@@ -62,7 +62,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                         colorFilter: ColorFilter.mode(
                             Colorthemes.foreground[theme], BlendMode.srcIn)),
                     decoration:
-                        BoxDecoration(color: Colorthemes.background[theme]),
+                        BoxDecoration(color: Colorthemes.background[theme], boxShadow: []),
                   ),
                   DrawerDropDown(
                       name: 'Sprache:',

@@ -13,6 +13,9 @@ import 'package:flutter/rendering.dart';
 import '../../main.dart';
 
 class GameLevelOne extends StatefulWidget {
+  GameLevelOne({required this.level});
+  final int level;
+
   @override
   _GameLevelOneState createState() => _GameLevelOneState();
 }
@@ -20,12 +23,13 @@ class GameLevelOne extends StatefulWidget {
 class _GameLevelOneState extends State<GameLevelOne> {
   int errors = 0;
   List<String> verse = [];
+  List<int> selectedVerse = [];
 
   @override
   void initState() {
     super.initState();
 
-    List<int> selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
+    selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     verse = Bible()
         .getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
   }
@@ -62,6 +66,7 @@ class _GameLevelOneState extends State<GameLevelOne> {
               padding: EdgeInsets.all(20),
               color: Colorthemes.background[theme],
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   (errors < 4)
                       ? IconRow(
@@ -77,6 +82,7 @@ class _GameLevelOneState extends State<GameLevelOne> {
                         ),
                   SizedBox(height: 20),
                   OrderChipsGame(
+                      level: widget.level,
                       itemList: verse,
                       onWrong: madeError,
                       onAllCorrect: () {
@@ -87,6 +93,12 @@ class _GameLevelOneState extends State<GameLevelOne> {
                                 builder: (context) => new EndScreen()));
                       },
                       percentHidden: 40),
+                  SizedBox(height: 20),
+                  Text(
+                    '${bible[selectedVerse[0]]['abbrev'].toUpperCase()} ${selectedVerse[1] + 1}, ${selectedVerse[2] + 1}',
+                    style: TextStyle(color: Colorthemes.foreground[theme]),
+                  ),
+                  SizedBox(height: 20),
                 ],
               ),
             ),
