@@ -90,23 +90,50 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
             flex: 1,
             child: Wrap(
                 children: gangGang.map((e) {
-              return InkWell(
-                  child: Container(
-                      margin: EdgeInsets.all(3),
-                      child: Chip(
-                          backgroundColor: (e.containsValue(true))
-                              ? Colorthemes.backgroundlight[theme]
-                              : Colorthemes.backgroundlight[theme],
-                          shadowColor: Colorthemes.backgroundlight[theme],
-                          label: Text(
-                            e.keys.elementAt(0),
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: (e.containsValue(true))
-                                  ? Colorthemes.backgroundlight[theme]
-                                  : Colorthemes.foreground[theme],
-                            ),
-                          ))));
+                  count++;
+              return DragTarget<String>(
+                  onWillAccept: (data) => topList.contains(data),
+                  onAccept: (data) {
+                    if (data == e.keys.elementAt(0) ||
+                        (firstLetter &&
+                            e.keys.elementAt(0)[0] == data[0])) {
+                      setState(() {
+                        bottomList.remove(data);
+                        e[data] = false;
+                        checkList.remove(data);
+                        print(gangGang);
+                      });
+                      if (checkList.isEmpty) {
+                        if (errors < 4) {
+                          widget.onAllCorrect();
+                        }
+                      }
+                    } else {
+                      errors++;
+                      widget.onWrong();
+                    }
+                  },
+                  onLeave: (data) {},
+                  builder: (BuildContext context, List<String?> incoming,
+                      List rejected) {
+                    return InkWell(
+                        child: Container(
+                            margin: EdgeInsets.all(3),
+                            child: Chip(
+                                backgroundColor: (e.containsValue(true))
+                                    ? Colorthemes.backgroundlight[theme]
+                                    : Colorthemes.backgroundlight[theme],
+                                shadowColor: Colorthemes.backgroundlight[theme],
+                                label: Text(
+                                  e.keys.elementAt(0),
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                    color: (e.containsValue(true))
+                                        ? Colorthemes.backgroundlight[theme]
+                                        : Colorthemes.foreground[theme],
+                                  ),
+                                ))));
+                  });
             }).toList()),
           ),
           Expanded(
@@ -117,64 +144,79 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                   alignment: WrapAlignment.start,
                   crossAxisAlignment: WrapCrossAlignment.end,
                   children: bottomList.map((e) {
-                    return InkWell(
-                      child: Container(
-                          margin: EdgeInsets.all(3),
-                          child: InkWell(
-                            onTap: () {
-                              if (checkList[0] == e ||
-                                  (firstLetter && e[0] == checkList[0][0])) {
-                                setState(() {
-                                  bottomList.remove(checkList[0]);
-                                  for (Map i in gangGang) {
-                                    if (i[checkList[0]] == true) {
-                                      i[checkList[0]] = false;
-                                      break;
+                    return Draggable(
+                      data: e,
+                      childWhenDragging: Container(),
+                      feedback: Material(
+                        color: Colors.transparent,
+                        child: Chip(
+                          backgroundColor: Colorthemes.accent[theme],
+                          label: Text(
+                            e,
+                            style: TextStyle(color: Colors.black, fontSize: 17),
+                          ),
+                        ),
+                      ),
+                      child: InkWell(
+                        child: Container(
+                            margin: EdgeInsets.all(3),
+                            child: InkWell(
+                              onTap: () {
+                                if (checkList[0] == e ||
+                                    (firstLetter && e[0] == checkList[0][0])) {
+                                  setState(() {
+                                    bottomList.remove(checkList[0]);
+                                    for (Map i in gangGang) {
+                                      if (i[checkList[0]] == true) {
+                                        i[checkList[0]] = false;
+                                        break;
+                                      }
+                                    }
+                                    checkList.removeAt(0);
+                                    print(gangGang);
+                                  });
+                                  if (checkList.isEmpty) {
+                                    if (errors < 4) {
+                                      widget.onAllCorrect();
                                     }
                                   }
-                                  checkList.removeAt(0);
-                                  print(gangGang);
-                                });
-                                if (checkList.isEmpty) {
-                                  if (errors < 4) {
-                                    widget.onAllCorrect();
-                                  }
+                                } else {
+                                  errors++;
+                                  widget.onWrong();
                                 }
-                              } else {
-                                errors++;
-                                widget.onWrong();
-                              }
-                            },
-                            child: Chip(
-                                backgroundColor:
-                                    Colorthemes.backgroundlight[theme],
-                                shadowColor: Colorthemes.backgroundlight[theme],
-                                label: (!firstLetter)
-                                    ? Text(e,
-                                        style: TextStyle(
-                                            fontSize: 16,
-                                            color:
-                                                Colorthemes.foreground[theme]))
-                                    : RichText(
-                                        text: new TextSpan(
-                                          // Note: Styles for TextSpans must be explicitly defined.
-                                          // Child text spans will inherit styles from parent
-                                          children: <TextSpan>[
-                                            new TextSpan(
-                                                text: e[0],
-                                                style: TextStyle(
-                                                    color: Colorthemes
-                                                        .foreground[theme])),
-                                            new TextSpan(
-                                                text: e.substring(1),
-                                                style: TextStyle(
-                                                    color: Colorthemes
-                                                            .backgroundlight[
-                                                        theme])),
-                                          ],
-                                        ),
-                                      )),
-                          )),
+                              },
+                              child: Chip(
+                                  backgroundColor:
+                                      Colorthemes.backgroundlight[theme],
+                                  shadowColor:
+                                      Colorthemes.backgroundlight[theme],
+                                  label: (!firstLetter)
+                                      ? Text(e,
+                                          style: TextStyle(
+                                              fontSize: 16,
+                                              color: Colorthemes
+                                                  .foreground[theme]))
+                                      : RichText(
+                                          text: new TextSpan(
+                                            // Note: Styles for TextSpans must be explicitly defined.
+                                            // Child text spans will inherit styles from parent
+                                            children: <TextSpan>[
+                                              new TextSpan(
+                                                  text: e[0],
+                                                  style: TextStyle(
+                                                      color: Colorthemes
+                                                          .foreground[theme])),
+                                              new TextSpan(
+                                                  text: e.substring(1),
+                                                  style: TextStyle(
+                                                      color: Colorthemes
+                                                              .backgroundlight[
+                                                          theme])),
+                                            ],
+                                          ),
+                                        )),
+                            )),
+                      ),
                     );
                   }).toList(),
                 ),

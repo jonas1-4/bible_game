@@ -12,15 +12,15 @@ import 'package:flutter/rendering.dart';
 
 import '../../main.dart';
 
-class GameLevelOne extends StatefulWidget {
-  GameLevelOne({required this.level});
+class VerseOrderGame extends StatefulWidget {
+  VerseOrderGame({required this.level});
   final int level;
 
   @override
-  _GameLevelOneState createState() => _GameLevelOneState();
+  _VerseOrderGameState createState() => _VerseOrderGameState();
 }
 
-class _GameLevelOneState extends State<GameLevelOne> {
+class _VerseOrderGameState extends State<VerseOrderGame> {
   int errors = 0;
   List<String> verse = [];
   List<int> selectedVerse = [];

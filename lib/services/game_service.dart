@@ -1,4 +1,4 @@
-import 'package:bible_game/activities/games/level_one.dart';
+import 'package:bible_game/activities/games/verse_order_game.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +12,7 @@ class GameService {
     Navigator.push(
         context,
         new MaterialPageRoute(
-            builder: (context) => new GameLevelOne(
+            builder: (context) => new VerseOrderGame(
                   level: currentVerseLevel,
                 )));
   }

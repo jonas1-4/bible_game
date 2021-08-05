@@ -31,8 +31,6 @@ class IconRow extends StatelessWidget {
       children.add(Expanded(flex: outSideFlex, child: Container()));
     if (plus) {
       for (int i = number - 1; i >= 0; i--) {
-        print(
-            'i: $i  conditionInt: $i condition: ${condition(conditionInt, i)}');
         children.add(Padding(
           padding: const EdgeInsets.all(3.0),
           child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot, size: size,
@@ -45,8 +43,6 @@ class IconRow extends StatelessWidget {
       }
     } else {
       for (int i = 0; i < number; i++) {
-        print(
-            'i: $i  conditionInt: $i condition: ${condition(conditionInt, i)}');
         children.add(Padding(
           padding: const EdgeInsets.all(3.0),
           child: Icon(condition(conditionInt, i) ? iconIf : iconIfNot, size: size,

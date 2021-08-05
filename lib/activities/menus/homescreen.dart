@@ -1,4 +1,3 @@
-import 'package:bible_game/activities/games/level_one.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/game_service.dart';
@@ -72,9 +71,6 @@ class _HomescreenState extends State<Homescreen> {
                             },
                             child: MenuCard(titletext: 'Lernen'),
                           ),
-                          InkWell(
-                              onTap: () {},
-                              child: MenuCard(titletext: 'Wettbewerb')),
                         ],
                       ),
                     ),
