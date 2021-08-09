@@ -58,7 +58,7 @@ class _EndScreenState extends State<EndScreen> {
                       ),
                       IconButtonText(
                         icon: Icons.replay,
-                        onTap: () => GameService().levelSelect(context: context),
+                        onTap: () => GameService().levelSelect(context: context, replay: true),
                         text: 'Nochmal',
                       ),
                       SizedBox(

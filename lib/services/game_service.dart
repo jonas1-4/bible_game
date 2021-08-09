@@ -8,7 +8,10 @@ class GameService {
     List verse = SharedPrefs().getSpIntList(spSelectedVerse);
     String verseStr = verse.toString();
     int currentVerseLevel = SharedPrefs().getSpInt(spVerseLevel + verseStr);
-    if (replay) currentVerseLevel--;
+    if (replay) {
+      currentVerseLevel--;
+      SharedPrefs().setSpInt(spVerseLevel + verseStr, currentVerseLevel);
+    }
     Navigator.push(
         context,
         new MaterialPageRoute(
