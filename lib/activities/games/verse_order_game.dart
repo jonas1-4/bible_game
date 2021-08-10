@@ -1,4 +1,5 @@
 import 'package:bible_game/activities/menus/after_level.dart';
+import 'package:bible_game/activities/menus/verse_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
@@ -84,6 +85,14 @@ class _VerseOrderGameState extends State<VerseOrderGame> {
                   SizedBox(height: 20),
                   OrderChipsGame(
                       level: widget.level,
+                      onLost: () {
+                        Navigator.push(
+                            context,
+                            new MaterialPageRoute(
+                                builder: (context) => new VerseSelect(
+                                    book: selectedVerse[0],
+                                    chapter: selectedVerse[1])));
+                      },
                       itemList: verse,
                       onWrong: madeError,
                       onAllCorrect: () {
