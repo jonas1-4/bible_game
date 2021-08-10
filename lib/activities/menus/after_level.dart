@@ -17,8 +17,13 @@ class _EndScreenState extends State<EndScreen> {
       spVerseLevel + SharedPrefs().getSpIntList(spSelectedVerse).toString());
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
+    return WillPopScope(
+      onWillPop: () async {
+        //have to pop so the lastverse/continue Button updates
+        Navigator.popAndPushNamed(context, homescreenPath);
+        return true;
+      },
+      child: Scaffold(
         appBar: AppBar(
           backgroundColor: Colorthemes.backgroundlight[theme],
           centerTitle: true,
@@ -58,7 +63,8 @@ class _EndScreenState extends State<EndScreen> {
                       ),
                       IconButtonText(
                         icon: Icons.replay,
-                        onTap: () => GameService().levelSelect(context: context, replay: true),
+                        onTap: () => GameService()
+                            .levelSelect(context: context, replay: true),
                         text: 'Nochmal',
                       ),
                       SizedBox(

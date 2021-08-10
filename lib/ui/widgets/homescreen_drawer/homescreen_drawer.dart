@@ -6,6 +6,7 @@ import 'package:bible_game/services/jsons.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_donation_buttons/donationButtons/paypalButton.dart';
 
 import 'drawer_dropdown.dart';
 
@@ -54,50 +55,55 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
             child: SafeArea(
                 child: Column(children: [
               Expanded(
-                child: ListView(padding: EdgeInsets.all(10), children: [
-                  DrawerHeader(
-                    child: ColorFiltered(
-                        child: Image.asset('assets/MenuDrawing.png',
-                            width: 100, height: 100),
-                        colorFilter: ColorFilter.mode(
-                            Colorthemes.foreground[theme], BlendMode.srcIn)),
-                    decoration:
-                        BoxDecoration(color: Colorthemes.background[theme], boxShadow: []),
-                  ),
-                  DrawerDropDown(
-                      name: 'Sprache:',
-                      hint: currentTranslation,
-                      items: translations,
-                      onTap: (int index, String value) async {
-                        SharedPrefs().setSpStr(spLanguage, value);
-                        SharedPrefs().setSpInt(spLanguageIndex, index);
-                        SharedPrefs().setSpInt(spBibleVersionIndex, 0);
-                        SharedPrefs().setSpStr(spBibleVersionName,
-                            indexJson[index]['versions'][0]['name']);
-                        SharedPrefs().setSpStr(spBibleVersionJson,
-                            indexJson[index]['versions'][0]['abbreviation']);
-                        bible = await JsonService().getJson(
-                            'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
-                        print(index.toString()+value);
-                        setState(() {});
-                      }),
-                  DrawerDropDown(
-                      name: 'Übersetzung: ',
-                      hint: currentBible,
-                      items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
-                          ['versions'],
-                      onTap: (int index, String value) async {
-                        SharedPrefs().setSpInt(spBibleVersionIndex, index);
-                        SharedPrefs().setSpStr(spBibleVersionName,
-                            indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['name']);
-                        SharedPrefs().setSpStr(spBibleVersionJson,
-                            indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['abbreviation']);
-                        bible = await JsonService().getJson(
-                            'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
-                        print(index.toString()+value);
-                        setState(() {});
-                      }),
-                ]),
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Column( children: [
+                    DrawerHeader(
+                      child: ColorFiltered(
+                          child: Image.asset('assets/MenuDrawing.png',
+                              width: 100, height: 100),
+                          colorFilter: ColorFilter.mode(
+                              Colorthemes.foreground[theme], BlendMode.srcIn)),
+                      decoration:
+                          BoxDecoration(color: Colorthemes.background[theme], boxShadow: []),
+                    ),
+                    DrawerDropDown(
+                        name: 'Sprache:',
+                        hint: currentTranslation,
+                        items: translations,
+                        onTap: (int index, String value) async {
+                          SharedPrefs().setSpStr(spLanguage, value);
+                          SharedPrefs().setSpInt(spLanguageIndex, index);
+                          SharedPrefs().setSpInt(spBibleVersionIndex, 0);
+                          SharedPrefs().setSpStr(spBibleVersionName,
+                              indexJson[index]['versions'][0]['name']);
+                          SharedPrefs().setSpStr(spBibleVersionJson,
+                              indexJson[index]['versions'][0]['abbreviation']);
+                          bible = await JsonService().getJson(
+                              'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+                          print(index.toString()+value);
+                          setState(() {});
+                        }),
+                    DrawerDropDown(
+                        name: 'Übersetzung: ',
+                        hint: currentBible,
+                        items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
+                            ['versions'],
+                        onTap: (int index, String value) async {
+                          SharedPrefs().setSpInt(spBibleVersionIndex, index);
+                          SharedPrefs().setSpStr(spBibleVersionName,
+                              indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['name']);
+                          SharedPrefs().setSpStr(spBibleVersionJson,
+                              indexJson[SharedPrefs().getSpInt(spLanguageIndex)]['versions'][index]['abbreviation']);
+                          bible = await JsonService().getJson(
+                              'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+                          print(index.toString()+value);
+                          setState(() {});
+                        }),
+                    Expanded(child: Container()),
+                    PayPalButton(paypalButtonId: "3JTCBDL46K7VL"),
+                  ]),
+                ),
               )
             ]))));
   }

@@ -103,12 +103,13 @@ class _BookSelectState extends State<BookSelect> {
                                         primary:
                                             Colorthemes.backgroundlight[theme]),
                                     onPressed: () {
+                                      
                                       Navigator.push(
                                           context,
                                           new MaterialPageRoute(
                                               builder: (context) =>
                                                   new ChapterSelect(
-                                                      book: index)));
+                                                      book: _books.indexOf(_booksResult[index]))));
                                     },
                                     child: Row(
                                       mainAxisAlignment:
