@@ -6,6 +6,7 @@ import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/icon_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class EndScreen extends StatefulWidget {
   @override
@@ -30,7 +31,7 @@ class _EndScreenState extends State<EndScreen> {
           title: Title(
               color: Colorthemes.foreground[theme],
               child: Text(
-                'Bible Trainer',
+                'perfect'.tr(),
                 style: TextStyle(
                   color: Colorthemes.foreground[theme],
                 ),
@@ -56,7 +57,7 @@ class _EndScreenState extends State<EndScreen> {
                       IconButtonText(
                         icon: Icons.arrow_right_alt,
                         onTap: () => GameService().nextLevel(context),
-                        text: 'Nächstes Level',
+                        text: 'nextLvl'.tr(),
                       ),
                       SizedBox(
                         height: 20,
@@ -65,7 +66,7 @@ class _EndScreenState extends State<EndScreen> {
                         icon: Icons.replay,
                         onTap: () => GameService()
                             .levelSelect(context: context, replay: true),
-                        text: 'Nochmal',
+                        text: 'replay'.tr(),
                       ),
                       SizedBox(
                         height: 20,
@@ -74,7 +75,7 @@ class _EndScreenState extends State<EndScreen> {
                         icon: Icons.home,
                         onTap: () =>
                             Navigator.popAndPushNamed(context, homescreenPath),
-                        text: 'Zum Homescreen',
+                        text: 'toHomescreen'.tr(),
                       ),
                     ],
                   ),

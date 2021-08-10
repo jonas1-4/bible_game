@@ -9,6 +9,7 @@ import 'package:bible_game/ui/widgets/order_chips_game.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../main.dart';
 
@@ -55,7 +56,7 @@ class _VerseOrderGameState extends State<VerseOrderGame> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Verse',
+                'bibleGame'.tr(),
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,

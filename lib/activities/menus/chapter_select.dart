@@ -5,6 +5,7 @@ import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class ChapterSelect extends StatelessWidget {
   ChapterSelect({required this.book});
@@ -19,7 +20,7 @@ class ChapterSelect extends StatelessWidget {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Kapitel',
+                'chapter'.tr(),
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -63,7 +64,7 @@ class ChapterSelect extends StatelessWidget {
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      Text('Kapitel ${index + 1}',
+                                      Text('${'chapter'.tr()} ${index + 1}',
                                           style: TextStyle(
                                               color:
                                                   Colorthemes.foreground[theme],

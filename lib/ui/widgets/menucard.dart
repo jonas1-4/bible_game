@@ -1,7 +1,7 @@
-
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:flutter/material.dart';
+
 
 class MenuCard extends StatelessWidget {
   final String titletext;
@@ -20,7 +20,8 @@ class MenuCard extends StatelessWidget {
             Center(
                 child: Text(
               '$titletext',
-              style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
+              style:
+                  TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
             )),
           ],
         ),

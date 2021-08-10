@@ -6,6 +6,7 @@ import 'package:bible_game/ui/icon_row.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class VerseSelect extends StatelessWidget {
   VerseSelect({required this.book, required this.chapter});
@@ -20,7 +21,7 @@ class VerseSelect extends StatelessWidget {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Vers',
+                'verse'.tr(),
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -55,7 +56,7 @@ class VerseSelect extends StatelessWidget {
                             child: Column(
                               children: [
                                 Expanded(child: Container()),
-                                Text('Vers ${index + 1}',
+                                Text('${'verse'.tr()} ${index + 1}',
                                     style: TextStyle(
                                         color: Colorthemes.foreground[theme],
                                         fontSize: 16)),

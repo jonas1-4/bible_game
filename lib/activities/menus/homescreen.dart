@@ -7,6 +7,7 @@ import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import '../../main.dart';
 
@@ -30,7 +31,7 @@ class _HomescreenState extends State<Homescreen> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Bibel-Lehrer',
+                'bibleGame'.tr(),
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -63,13 +64,13 @@ class _HomescreenState extends State<Homescreen> {
                           if (lastVerse.isNotEmpty)
                             InkWell(
                               onTap: () => GameService().levelSelect(context: context),
-                              child: MenuCard(titletext: 'Fortfahren'),
+                              child: MenuCard(titletext: 'continue'.tr()),
                             ),
                           InkWell(
                             onTap: () {
                               Navigator.pushNamed(context, bookSelectPath);
                             },
-                            child: MenuCard(titletext: 'Lernen'),
+                            child: MenuCard(titletext: 'learn'.tr()),
                           ),
                         ],
                       ),

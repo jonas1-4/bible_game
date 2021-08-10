@@ -5,6 +5,7 @@ import 'package:bible_game/services/bible.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'package:easy_localization/easy_localization.dart';
 //Thanks to (List Search): https://www.kindacode.com/article/how-to-create-a-filter-search-listview-in-flutter/
 
 class BookSelect extends StatefulWidget {
@@ -52,7 +53,7 @@ class _BookSelectState extends State<BookSelect> {
           title: Title(
               color: Colors.black,
               child: Text(
-                'Buch',
+                'book'.tr(),
                 style: TextStyle(color: Colorthemes.foreground[theme]),
               )),
           centerTitle: true,
@@ -75,7 +76,7 @@ class _BookSelectState extends State<BookSelect> {
                                   color: Colorthemes.backgroundlight[theme])),
                           focusColor: Colorthemes.accent[theme],
                           hoverColor: Colorthemes.accent[theme],
-                          labelText: 'Suchen',
+                          labelText: 'search'.tr(),
                           suffixIcon: Icon(
                             Icons.search,
                             color: Colorthemes.accent[theme],

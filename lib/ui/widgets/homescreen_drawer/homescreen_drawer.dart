@@ -10,6 +10,7 @@ import 'package:flutter_donation_buttons/donationButtons/paypalButton.dart';
 
 import 'drawer_dropdown.dart';
 
+import 'package:easy_localization/easy_localization.dart';
 
 class HomeScreenDrawer extends StatefulWidget {
   final Function setParentState;
@@ -68,7 +69,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                           BoxDecoration(color: Colorthemes.background[theme], boxShadow: []),
                     ),
                     DrawerDropDown(
-                        name: 'Sprache:',
+                        name: 'language'.tr(),
                         hint: currentTranslation,
                         items: translations,
                         onTap: (int index, String value) async {
@@ -85,10 +86,10 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                           setState(() {});
                         }),
                     DrawerDropDown(
-                        name: 'Übersetzung: ',
+                        name: 'translation'.tr(),
                         hint: currentBible,
                         items: indexJson[SharedPrefs().getSpInt(spLanguageIndex)]
-                            ['versions'],
+                            ['versions']??[],
                         onTap: (int index, String value) async {
                           SharedPrefs().setSpInt(spBibleVersionIndex, index);
                           SharedPrefs().setSpStr(spBibleVersionName,
@@ -101,7 +102,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                           setState(() {});
                         }),
                     Expanded(child: Container()),
-                    PayPalButton(paypalButtonId: "3JTCBDL46K7VL"),
+                    PayPalButton(paypalButtonId: "3JTCBDL46K7VL", donationText: 'donatePP'.tr(),),
                   ]),
                 ),
               )
