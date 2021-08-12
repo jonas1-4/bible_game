@@ -1,27 +1,51 @@
 import 'package:bible_game/activities/games/verse_order_game.dart';
+import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 
 Widget _buildPopupDialog(BuildContext context) {
-  return new AlertDialog(
-    title: const Text('Popup example'),
-    content: new Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text("Hello"),
-      ],
-    ),
-    actions: <Widget>[
-      new FlatButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        textColor: Theme.of(context).primaryColor,
-        child: const Text('Close'),
+  void playLevel(int level) {
+    Navigator.push(
+        context,
+        new MaterialPageRoute(
+            builder: (context) => new VerseOrderGame(
+                  level: level,
+                )));
+  }
+
+  List<Widget> levels = [];
+  for (int i = 0; i < 3; i++) {
+    levels.add(
+      InkWell(
+        onTap: () => playLevel(i),
+        child: Expanded(
+          child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                "Level ${i+1}",
+                style: TextStyle(color: Colorthemes.foreground[theme]),
+              ),
+            ],
+          ),
+        ),
       ),
-    ],
+    );
+    levels.add(Divider(color: Colorthemes.accentlight[theme],));
+  }
+
+  return new AlertDialog(
+    backgroundColor: Colorthemes.background[theme],
+    titleTextStyle: TextStyle(color: Colorthemes.foreground[theme]),
+    title: const Text('Select Level'),
+    content: Container(
+      child: new Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: levels,
+      ),
+    ),
   );
 }
 
@@ -39,14 +63,13 @@ class GameService {
         context: context,
         builder: (BuildContext context) => _buildPopupDialog(context),
       );
-    }else{
-
-    Navigator.push(
-        context,
-        new MaterialPageRoute(
-            builder: (context) => new VerseOrderGame(
-                  level: currentVerseLevel,
-                )));
+    } else {
+      Navigator.push(
+          context,
+          new MaterialPageRoute(
+              builder: (context) => new VerseOrderGame(
+                    level: currentVerseLevel,
+                  )));
     }
   }
 
