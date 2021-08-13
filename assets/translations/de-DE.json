@@ -12,6 +12,12 @@
   "perfect":"Perfekt",
   "nextLvl":"Nächstes Level",
   "replay":"Nochmal",
-  "toHomescreen":"Zum Homescreen"
-
+  "toHomescreen":"Zum Homescreen",
+  "selectLevel":"Wähle dein Level",
+  "level":"Level",
+  "appRateNo":"Nein",
+  "appRateLater":"Später",
+  "appRateRate":"Bewerten",
+  "appRateMessage":"Über eine Bewertung würden wir uns sehr freuen",
+  "appRateTitle":"Möchtest du die App bewerten?"
 }

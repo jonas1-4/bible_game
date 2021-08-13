@@ -13,9 +13,27 @@ class EndScreen extends StatefulWidget {
   _EndScreenState createState() => _EndScreenState();
 }
 
+
 class _EndScreenState extends State<EndScreen> {
   int stars = SharedPrefs().getSpInt(
       spVerseLevel + SharedPrefs().getSpIntList(spSelectedVerse).toString());
+  @override
+  void initState(){
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      if (mounted && rateMyApp.shouldOpenDialog) {
+        rateMyApp.showRateDialog(
+          context,
+          laterButton: 'appRateLater'.tr(),
+          rateButton: 'appRateRate'.tr(),
+          noButton: 'appRateNo'.tr(),
+          title: 'appRateTitle'.tr(),
+          message: 'appRateMessage'.tr(),
+        );
+      }
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return WillPopScope(

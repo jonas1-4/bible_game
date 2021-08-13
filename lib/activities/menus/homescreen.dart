@@ -22,6 +22,12 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     final List<int> lastVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     return Scaffold(
@@ -63,7 +69,8 @@ class _HomescreenState extends State<Homescreen> {
                         children: <Widget>[
                           if (lastVerse.isNotEmpty)
                             InkWell(
-                              onTap: () => GameService().levelSelect(context: context),
+                              onTap: () =>
+                                  GameService().levelSelect(context: context),
                               child: MenuCard(titletext: 'continue'.tr()),
                             ),
                           InkWell(

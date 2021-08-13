@@ -3,6 +3,7 @@ import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 Widget _buildPopupDialog(BuildContext context) {
   void playLevel(int level) {
@@ -19,16 +20,14 @@ Widget _buildPopupDialog(BuildContext context) {
     levels.add(
       InkWell(
         onTap: () => playLevel(i),
-        child: Expanded(
-          child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Text(
-                "Level ${i+1}",
-                style: TextStyle(color: Colorthemes.foreground[theme]),
-              ),
-            ],
-          ),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Text(
+              "${'level'.tr()} ${i+1}",
+              style: TextStyle(color: Colorthemes.foreground[theme]),
+            ),
+          ],
         ),
       ),
     );
@@ -38,7 +37,7 @@ Widget _buildPopupDialog(BuildContext context) {
   return new AlertDialog(
     backgroundColor: Colorthemes.background[theme],
     titleTextStyle: TextStyle(color: Colorthemes.foreground[theme]),
-    title: const Text('Select Level'),
+    title: const Text('selectLevel').tr(),
     content: Container(
       child: new Column(
         mainAxisSize: MainAxisSize.min,
