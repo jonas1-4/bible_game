@@ -37,6 +37,7 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
   int errors = 0, count = 0, percentHidden = 0;
   bool firstLetter = false;
   List<Map<String, bool>> gangGang = [new Map<String, bool>()];
+  final ScrollController topScrollController = ScrollController(), botScrollController = ScrollController();
 
   @override
   void initState() {
@@ -96,60 +97,65 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
         children: [
           Expanded(
             flex: 1,
-            child: ListView(
-              children: [
-                Wrap(
-                    children: gangGang.map((e) {
-                  count++;
-                  return DragTarget<String>(
-                      onWillAccept: (data) => topList.contains(data),
-                      onAccept: (data) {
-                        if (data.toLowerCase() ==
-                                e.keys.elementAt(0).toLowerCase() ||
-                            (firstLetter &&
-                                e.keys.elementAt(0)[0].toLowerCase() ==
-                                    data[0].toLowerCase())) {
-                          setState(() {
-                            bottomList.remove(data);
-                            e[data] = false;
-                            checkList.remove(data);
-                          });
-                          if (checkList.isEmpty) {
-                            if (errors < 4) {
-                              widget.onAllCorrect();
-                            } else {
-                              widget.onLost();
+            child: Scrollbar(
+                isAlwaysShown: true,
+                controller: topScrollController,
+              child: ListView(
+                  controller: topScrollController,
+                children: [
+                  Wrap(
+                      children: gangGang.map((e) {
+                    count++;
+                    return DragTarget<String>(
+                        onWillAccept: (data) => topList.contains(data),
+                        onAccept: (data) {
+                          if (data.toLowerCase() ==
+                                  e.keys.elementAt(0).toLowerCase() ||
+                              (firstLetter &&
+                                  e.keys.elementAt(0)[0].toLowerCase() ==
+                                      data[0].toLowerCase())) {
+                            setState(() {
+                              bottomList.remove(data);
+                              e[data] = false;
+                              checkList.remove(data);
+                            });
+                            if (checkList.isEmpty) {
+                              if (errors < 4) {
+                                widget.onAllCorrect();
+                              } else {
+                                widget.onLost();
+                              }
                             }
+                          } else {
+                            errors++;
+                            widget.onWrong();
                           }
-                        } else {
-                          errors++;
-                          widget.onWrong();
-                        }
-                      },
-                      onLeave: (data) {},
-                      builder: (BuildContext context, List<String?> incoming,
-                          List rejected) {
-                        return InkWell(
-                            child: Container(
-                                margin: EdgeInsets.all(3),
-                                child: Chip(
-                                    backgroundColor: (e.containsValue(true))
-                                        ? Colorthemes.backgroundlight[theme]
-                                        : Colorthemes.backgroundlight[theme],
-                                    shadowColor:
-                                        Colorthemes.backgroundlight[theme],
-                                    label: Text(
-                                      e.keys.elementAt(0),
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        color: (e.containsValue(true))
-                                            ? Colorthemes.backgroundlight[theme]
-                                            : Colorthemes.foreground[theme],
-                                      ),
-                                    ))));
-                      });
-                }).toList()),
-              ],
+                        },
+                        onLeave: (data) {},
+                        builder: (BuildContext context, List<String?> incoming,
+                            List rejected) {
+                          return InkWell(
+                              child: Container(
+                                  margin: EdgeInsets.all(3),
+                                  child: Chip(
+                                      backgroundColor: (e.containsValue(true))
+                                          ? Colorthemes.backgroundlight[theme]
+                                          : Colorthemes.backgroundlight[theme],
+                                      shadowColor:
+                                          Colorthemes.backgroundlight[theme],
+                                      label: Text(
+                                        e.keys.elementAt(0),
+                                        style: TextStyle(
+                                          fontSize: 16,
+                                          color: (e.containsValue(true))
+                                              ? Colorthemes.backgroundlight[theme]
+                                              : Colorthemes.foreground[theme],
+                                        ),
+                                      ))));
+                        });
+                  }).toList()),
+                ],
+              ),
             ),
           ),
           Expanded(
@@ -160,96 +166,101 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                 Expanded(
                   child: Container(
                     alignment: Alignment.bottomCenter,
-                    child: ListView(children: [
-                      Wrap(
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.end,
-                        children: bottomList.map((e) {
-                          Widget verseChip = Container(
-                              margin: EdgeInsets.all(3),
-                              child: InkWell(
-                                onTap: () {
-                                  if (checkList[0].toLowerCase() ==
-                                          e.toLowerCase() ||
-                                      (firstLetter &&
-                                          e[0].toLowerCase() ==
-                                              checkList[0][0].toLowerCase())) {
-                                    setState(() {
-                                      bottomList.remove(checkList[0]);
-                                      for (Map i in gangGang) {
-                                        if (i[checkList[0]] == true) {
-                                          i[checkList[0]] = false;
-                                          break;
+                    child: Scrollbar(
+
+                isAlwaysShown: true,
+                controller: botScrollController,
+                      child: ListView(controller: botScrollController,children: [
+                        Wrap(
+                          alignment: WrapAlignment.start,
+                          crossAxisAlignment: WrapCrossAlignment.end,
+                          children: bottomList.map((e) {
+                            Widget verseChip = Container(
+                                margin: EdgeInsets.all(3),
+                                child: InkWell(
+                                  onTap: () {
+                                    if (checkList[0].toLowerCase() ==
+                                            e.toLowerCase() ||
+                                        (firstLetter &&
+                                            e[0].toLowerCase() ==
+                                                checkList[0][0].toLowerCase())) {
+                                      setState(() {
+                                        bottomList.remove(checkList[0]);
+                                        for (Map i in gangGang) {
+                                          if (i[checkList[0]] == true) {
+                                            i[checkList[0]] = false;
+                                            break;
+                                          }
+                                        }
+                                        checkList.removeAt(0);
+                                      });
+                                      if (checkList.isEmpty) {
+                                        if (errors < 4) {
+                                          widget.onAllCorrect();
+                                        } else {
+                                          widget.onLost();
                                         }
                                       }
-                                      checkList.removeAt(0);
-                                    });
-                                    if (checkList.isEmpty) {
-                                      if (errors < 4) {
-                                        widget.onAllCorrect();
-                                      } else {
-                                        widget.onLost();
-                                      }
+                                    } else {
+                                      errors++;
+                                      widget.onWrong();
                                     }
-                                  } else {
-                                    errors++;
-                                    widget.onWrong();
-                                  }
-                                },
-                                child: Chip(
-                                    backgroundColor:
-                                        Colorthemes.backgroundlight[theme],
-                                    shadowColor:
-                                        Colorthemes.backgroundlight[theme],
-                                    label: (!firstLetter)
-                                        ? Text(e,
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colorthemes
-                                                    .foreground[theme]))
-                                        : RichText(
-                                            text: new TextSpan(
-                                              // Note: Styles for TextSpans must be explicitly defined.
-                                              // Child text spans will inherit styles from parent
-                                              children: <TextSpan>[
-                                                new TextSpan(
-                                                    text: e[0],
-                                                    style: TextStyle(
-                                                        color: Colorthemes
-                                                                .foreground[
-                                                            theme])),
-                                                new TextSpan(
-                                                    text: e.substring(1),
-                                                    style: TextStyle(
-                                                        color: Colorthemes
-                                                                .backgroundlight[
-                                                            theme])),
-                                              ],
-                                            ),
-                                          )),
-                              ));
-
-                          return (!firstLetter)
-                              ? Draggable(
-                                  data: e,
-                                  childWhenDragging: Container(),
-                                  feedback: Material(
-                                    color: Colors.transparent,
-                                    child: Chip(
+                                  },
+                                  child: Chip(
                                       backgroundColor:
-                                          Colorthemes.accent[theme],
-                                      label: Text(
-                                        e,
-                                        style: TextStyle(
-                                            color: Colors.black, fontSize: 17),
+                                          Colorthemes.backgroundlight[theme],
+                                      shadowColor:
+                                          Colorthemes.backgroundlight[theme],
+                                      label: (!firstLetter)
+                                          ? Text(e,
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Colorthemes
+                                                      .foreground[theme]))
+                                          : RichText(
+                                              text: new TextSpan(
+                                                // Note: Styles for TextSpans must be explicitly defined.
+                                                // Child text spans will inherit styles from parent
+                                                children: <TextSpan>[
+                                                  new TextSpan(
+                                                      text: e[0],
+                                                      style: TextStyle(
+                                                          color: Colorthemes
+                                                                  .foreground[
+                                                              theme])),
+                                                  new TextSpan(
+                                                      text: e.substring(1),
+                                                      style: TextStyle(
+                                                          color: Colorthemes
+                                                                  .backgroundlight[
+                                                              theme])),
+                                                ],
+                                              ),
+                                            )),
+                                ));
+
+                            return (!firstLetter)
+                                ? Draggable(
+                                    data: e,
+                                    childWhenDragging: Container(),
+                                    feedback: Material(
+                                      color: Colors.transparent,
+                                      child: Chip(
+                                        backgroundColor:
+                                            Colorthemes.accent[theme],
+                                        label: Text(
+                                          e,
+                                          style: TextStyle(
+                                              color: Colors.black, fontSize: 17),
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                  child: verseChip)
-                              : verseChip;
-                        }).toList(),
-                      ),
-                    ]),
+                                    child: verseChip)
+                                : verseChip;
+                          }).toList(),
+                        ),
+                      ]),
+                    ),
                   ),
                 ),
               ],

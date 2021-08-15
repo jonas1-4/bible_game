@@ -4,10 +4,12 @@ import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/widgets/homescreen_drawer/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
+import 'package:bible_game/ui/widgets/photo_hero.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/scheduler.dart';
 
 import '../../main.dart';
 
@@ -24,11 +26,11 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
-
   }
 
   @override
   Widget build(BuildContext context) {
+    timeDilation = 1.0;
     final List<int> lastVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     return Scaffold(
         appBar: AppBar(
@@ -53,13 +55,10 @@ class _HomescreenState extends State<Homescreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: ColorFiltered(
-                        child: Image.asset(
-                          'assets/MenuDrawing.png',
-                        ),
-                        colorFilter: ColorFilter.mode(
-                            Colorthemes.foreground[theme], BlendMode.srcIn)),
-                  ),
+                        child: PhotoHero(
+                            width: 400,
+                          photo: 'assets/images/MenuDrawing.png',
+                        ),),
                   Container(
                     child: Expanded(
                       flex: 1,

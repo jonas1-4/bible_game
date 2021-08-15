@@ -61,7 +61,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                   child: Column( children: [
                     DrawerHeader(
                       child: ColorFiltered(
-                          child: Image.asset('assets/MenuDrawing.png',
+                          child: Image.asset('assets/images/MenuDrawing.png',
                               width: 100, height: 100),
                           colorFilter: ColorFilter.mode(
                               Colorthemes.foreground[theme], BlendMode.srcIn)),
