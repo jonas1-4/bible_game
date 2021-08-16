@@ -9,7 +9,7 @@ RateMyApp rateMyApp = RateMyApp(
   remindLaunches: 15,
   preferencesPrefix: 'rateMyApp_',
   minDays: 0,
-  minLaunches: 15,
+  minLaunches: 10,
 );
 
 //SharedPrefs const

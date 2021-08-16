@@ -8,9 +8,10 @@
   </intent>
 </queries>
    <application
-        android:label="bible_game"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Bible Game"
+     >
         <activity
+     android:icon="@mipmap/ic_launcher"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
