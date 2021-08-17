@@ -35,6 +35,7 @@ class _HomescreenState extends State<Homescreen> {
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colorthemes.background[theme],
+          iconTheme: IconThemeData(color: Colorthemes.foreground[theme]),
           backgroundColor: Colorthemes.backgroundlight[theme],
           title: Title(
               color: Colors.black,
