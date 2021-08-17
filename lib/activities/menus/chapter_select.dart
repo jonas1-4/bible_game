@@ -55,7 +55,7 @@ class ChapterSelect extends StatelessWidget {
                                   onPressed: () {
                                     Navigator.push(
                                         context,
-                                        new MaterialPageRoute(
+                                        MaterialPageRoute(
                                             builder: (context) =>
                                                 new VerseSelect(
                                                     book: book,

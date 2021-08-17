@@ -21,6 +21,5 @@ class AppService {
 
     bible = await JsonService().getJson(
         'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
-    return;
   }
 }
