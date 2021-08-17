@@ -1,5 +1,8 @@
 import 'dart:ui';
 
+//Dont using colortheme of Materialapp since it doesnt color things as I would
+//prefer and im more creative if i have to color everything myself;
+
 class Colorthemes {
   static const List<Color> foreground =       [Color(0xFFFEFAE0)];
   static const List<Color> background =       [Color(0xFF283618)];
