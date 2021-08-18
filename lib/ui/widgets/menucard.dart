@@ -5,25 +5,29 @@ import 'package:flutter/material.dart';
 
 class MenuCard extends StatelessWidget {
   final String titletext;
-  MenuCard({required this.titletext});
+  final VoidCallback onTap;
+  MenuCard({required this.titletext, required this.onTap});
 
   @override
   Widget build(BuildContext buildContext) {
-    return Card(
-      color: Colorthemes.backgroundlight[theme],
-      elevation: 5,
-      margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
-      child: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Column(
-          children: <Widget>[
-            Center(
-                child: Text(
-              '$titletext',
-              style:
-                  TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
-            )),
-          ],
+    return InkWell(
+        onTap: onTap,
+      child: Card(
+        color: Colorthemes.backgroundlight[theme],
+        elevation: 5,
+        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+        child: Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Column(
+            children: <Widget>[
+              Center(
+                  child: Text(
+                '$titletext',
+                style:
+                    TextStyle(fontSize: 20),
+              )),
+            ],
+          ),
         ),
       ),
     );

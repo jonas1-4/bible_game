@@ -24,14 +24,13 @@ class DrawerDropDown extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Text(name,
-            style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 17)),
+            style: TextStyle(fontSize: 17)),
         Expanded(child: Container()),
         (items.length > 1)
             ? DropdownButton(
                 underline: Container(),
                 menuMaxHeight: 300,
-                hint: Text(hint,
-                    style: TextStyle(color: Colorthemes.foreground[theme])),
+                hint: Text(hint,style: TextStyle(color:  Colorthemes.foreground[theme])),
                 dropdownColor: Colorthemes.backgroundlight[theme],
                 items: items.map((value) {
                   String valueStr;
@@ -45,13 +44,11 @@ class DrawerDropDown extends StatelessWidget {
                         onTap(items.indexOf(value), valueStr);
                       },
                       value: valueStr,
-                      child: Text(valueStr,
-                          style:
-                              TextStyle(color: Colorthemes.foreground[theme])));
+                      child: Text(valueStr,));
                 }).toList(),
                 onChanged: (_) {},
               )
-            : Text(hint, style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 17)),
+            : Text(hint, style: TextStyle( fontSize: 17)),
       ],
     );
   }

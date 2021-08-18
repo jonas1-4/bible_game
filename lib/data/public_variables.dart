@@ -8,8 +8,8 @@ dynamic bible = {};
 RateMyApp rateMyApp = RateMyApp(
   remindLaunches: 15,
   preferencesPrefix: 'rateMyApp_',
-  minDays: 0,
-  minLaunches: 10,
+  minDays: 5,
+  minLaunches: 40,
 );
 
 //SharedPrefs const

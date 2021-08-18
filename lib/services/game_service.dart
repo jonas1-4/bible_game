@@ -1,9 +1,12 @@
 import 'package:bible_game/activities/games/verse_order_game.dart';
+import 'package:bible_game/activities/menus/verse_display.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+
+import 'bible.dart';
 
 Widget _buildPopupDialog(BuildContext context) {
   void playLevel(int level) {
@@ -21,17 +24,19 @@ Widget _buildPopupDialog(BuildContext context) {
       InkWell(
         onTap: () => playLevel(i),
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.end,
           children: [
             Text(
-              "${'level'.tr()} ${i+1}",
+              "${'level'.tr()} ${i + 1}",
               style: TextStyle(color: Colorthemes.foreground[theme]),
             ),
           ],
         ),
       ),
     );
-    levels.add(Divider(color: Colorthemes.accentlight[theme],));
+    levels.add(Divider(
+      color: Colorthemes.accentlight[theme],
+    ));
   }
 
   return new AlertDialog(
@@ -57,45 +62,44 @@ class GameService {
       currentVerseLevel--;
       SharedPrefs().setSpInt(spVerseLevel + verseStr, currentVerseLevel);
     }
-    if (currentVerseLevel == 3) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) => _buildPopupDialog(context),
-      );
-    } else {
-      Navigator.push(
-          context,
-          new MaterialPageRoute(
-              builder: (context) => new VerseOrderGame(
-                    level: currentVerseLevel,
-                  )));
+    switch (currentVerseLevel) {
+      case 0:
+        {
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => new VerseDisplay()));
+        }
+        break;
+      case 3:
+        {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) => _buildPopupDialog(context),
+          );
+        }
+        break;
+      default:
+        {
+          Navigator.push(
+              context,
+              new MaterialPageRoute(
+                  builder: (context) => new VerseOrderGame(
+                        level: currentVerseLevel,
+                      )));
+        }
     }
   }
 
   void nextLevel(BuildContext context) {
-    List verseList = SharedPrefs().getSpIntList(spSelectedVerse);
+    List<int> verseList = SharedPrefs().getSpIntList(spSelectedVerse);
     String verseStr = verseList.toString();
     int currentVerseLevel = SharedPrefs().getSpInt(spVerseLevel + verseStr);
     if (currentVerseLevel < 3) {
       levelSelect(context: context);
       return;
     }
-    int book = verseList[0], chapter = verseList[1], verse = verseList[2];
 
-    if (bible[book]['chapters'][chapter][verse].length - 1 > verse) {
-      verse++;
-    } else {
-      verse = 0;
-      chapter++;
-      if (bible[book]['chapters'][chapter].length - 1 < chapter) {
-        chapter = 0;
-        book++;
-      }
-      if (bible[book]['chapters'].length - 1 < book) {
-        book = 1;
-      }
-    }
-    SharedPrefs().setSpIntList(spSelectedVerse, [book, chapter, verse]);
+    verseList = Bible().nextVerse(verseList);
+    SharedPrefs().setSpIntList(spSelectedVerse, verseList);
     levelSelect(context: context);
   }
 

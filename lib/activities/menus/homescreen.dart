@@ -5,13 +5,13 @@ import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/widgets/homescreen_drawer/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:bible_game/ui/widgets/photo_hero.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../../main.dart';
+import 'book_select.dart';
 
 class Homescreen extends StatefulWidget {
   @override
@@ -56,10 +56,11 @@ class _HomescreenState extends State<Homescreen> {
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                        child: PhotoHero(
-                            width: 400,
-                          photo: 'assets/images/MenuDrawing.png',
-                        ),),
+                    child: PhotoHero(
+                      width: 300,
+                      photo: 'assets/images/MenuDrawing.png',
+                    ),
+                  ),
                   Container(
                     child: Expanded(
                       flex: 1,
@@ -68,16 +69,17 @@ class _HomescreenState extends State<Homescreen> {
                         verticalDirection: VerticalDirection.down,
                         children: <Widget>[
                           if (lastVerse.isNotEmpty)
-                            InkWell(
+                            MenuCard(
+                              titletext: 'continue'.tr(),
                               onTap: () =>
                                   GameService().levelSelect(context: context),
-                              child: MenuCard(titletext: 'continue'.tr()),
                             ),
-                          InkWell(
-                            onTap: () {
-                              Navigator.pushNamed(context, bookSelectPath);
-                            },
-                            child: MenuCard(titletext: 'learn'.tr()),
+                          MenuCard(
+                            titletext: 'learn'.tr(),
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => BookSelect())),
                           ),
                         ],
                       ),
