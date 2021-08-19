@@ -1,7 +1,6 @@
 import 'package:bible_game/data/public_variables.dart';
 
 class Bible {
-
   ///returns an ordered List of all Bible book names
   List<String> getBookList() {
     List<String> books = [];
@@ -16,14 +15,14 @@ class Bible {
     List<String> verseList = bible[book]['chapters'][chapter][verse].split(' ');
     return verseList;
   }
-  
+
   ///returns the verse location ?dont know how to call this
-  String getVerseLocation(List<int> verse){
+  String getVerseLocation(List<int> verse) {
     return '${bible[verse[0]]['name']} ${verse[1] + 1}, ${verse[2] + 1}';
   }
-    
+
   ///returns the abbreviation of the verse location
-  String getVerseLocationAbb(List<int> verse){
+  String getVerseLocationAbb(List<int> verse) {
     return '${bible[verse[0]]['abbrev'].toUpperCase()} ${verse[1] + 1}, ${verse[2] + 1}';
   }
 
@@ -38,7 +37,6 @@ class Bible {
     int book = currentVerse[0],
         chapter = currentVerse[1],
         verse = currentVerse[2];
-    print('${bible[book]['chapters'][chapter].length}  || $verse');
 
     if (bible[book]['chapters'][chapter].length - 1 > verse) {
       verse++;
@@ -56,4 +54,26 @@ class Bible {
     return [book, chapter, verse];
   }
 
+  ///returns the verse before the currentVerse
+  List<int> getPreviousVerse(List<int> currentVerse) {
+    int book = currentVerse[0],
+        chapter = currentVerse[1],
+        verse = currentVerse[2];
+
+    if (verse != 0) {
+      verse--;
+    } else {
+      if (chapter != 0) {
+        chapter--;
+        verse = bible[book]['chapters'][chapter].length - 1;
+      } else {
+        if (book != 0) {
+          book--;
+          chapter = bible[book]['chapters'].length - 1;
+          verse = bible[book]['chapters'][chapter].length - 1;
+        }
+      }
+    }
+    return [book, chapter, verse];
+  }
 }

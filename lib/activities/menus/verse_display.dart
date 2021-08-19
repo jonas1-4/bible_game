@@ -37,16 +37,20 @@ class _VerseDisplayState extends State<VerseDisplay> {
         backgroundColor: Colorthemes.background[theme],
         body: SizedBox.expand(
           child: GestureDetector(
+              behavior: HitTestBehavior.opaque,
             onHorizontalDragEnd: (details) {
               // Swiping in right direction.
-              if (details.primaryVelocity! > 4) {}
+              if (details.velocity.pixelsPerSecond.dx > 250) {
+                setState(() {
+                  selectedVerse = Bible().getPreviousVerse(selectedVerse);
+                });
+              }
 
               // Swiping in left direction.
-              if (details.primaryVelocity! < 4) {
+              if (details.velocity.pixelsPerSecond.dx < -250) {
                 setState(() {
                   selectedVerse = Bible().getFollowingVerse(selectedVerse);
                 });
-                print(selectedVerse);
               }
             },
             child: Padding(
