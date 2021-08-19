@@ -30,7 +30,6 @@ class _HomescreenState extends State<Homescreen> {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1.0;
     final List<int> lastVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     return Scaffold(
         appBar: AppBar(

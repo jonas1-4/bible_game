@@ -1,3 +1,4 @@
+import 'package:bible_game/services/shared_prefs.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 int theme = 0;

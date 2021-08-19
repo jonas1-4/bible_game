@@ -10,6 +10,7 @@ import 'package:flutter/scheduler.dart';
 import '../main.dart';
 import 'bible_game.dart';
 
+// TODO the hero animation should go to homescreen
 class Splash extends StatefulWidget {
   @override
   _SplashState createState() => _SplashState();
@@ -30,7 +31,7 @@ class _SplashState extends State<Splash> {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 15;
+    // timeDilation = 15;
     startTimer();
     return Scaffold(
       backgroundColor: Colorthemes.background[theme],

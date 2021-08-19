@@ -105,7 +105,7 @@ class _VerseOrderGameState extends State<VerseOrderGame> {
                       percentHidden: 40),
                   SizedBox(height: 20),
                   Text(
-                    '${bible[selectedVerse[0]]['abbrev'].toUpperCase()} ${selectedVerse[1] + 1}, ${selectedVerse[2] + 1}',
+                    '${Bible().getVerseLocationAbb(selectedVerse)}',
                     style: TextStyle(color: Colorthemes.foreground[theme]),
                   ),
                   SizedBox(height: 20),

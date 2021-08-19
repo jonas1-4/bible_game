@@ -113,12 +113,15 @@ class IconButtonText extends StatelessWidget {
     required this.onTap,
     required this.icon,
     required this.text,
+    this.size = 20,
     Key? key,
   }) : super(key: key);
 
   final Function onTap;
   final String text;
   final IconData icon;
+  final double size;
+  
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +130,7 @@ class IconButtonText extends StatelessWidget {
       child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
         Icon(
           icon,
-          size: 20,
+          size: size,
           color: Colorthemes.foreground[theme],
         ),
         SizedBox(
@@ -135,7 +138,7 @@ class IconButtonText extends StatelessWidget {
         ),
         Text(
           text,
-          style: TextStyle(color: Colorthemes.foreground[theme], fontSize: 20),
+          style: TextStyle(color: Colorthemes.foreground[theme], fontSize: size),
         ),
       ]),
     );

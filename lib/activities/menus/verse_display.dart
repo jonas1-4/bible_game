@@ -44,7 +44,7 @@ class _VerseDisplayState extends State<VerseDisplay> {
               // Swiping in left direction.
               if (details.primaryVelocity! < 4) {
                 setState(() {
-                  selectedVerse = Bible().nextVerse(selectedVerse);
+                  selectedVerse = Bible().getFollowingVerse(selectedVerse);
                 });
                 print(selectedVerse);
               }
@@ -53,19 +53,32 @@ class _VerseDisplayState extends State<VerseDisplay> {
               padding: EdgeInsets.fromLTRB(50, 20, 50, 50),
               child: Column(
                 children: [
-                  Text(
-                    verse,
-                    style: TextStyle(fontSize: 15.sp),
+                  Card(
+                      color: Colorthemes.backgroundlight[theme],
+                    child: Padding(
+                      padding: const EdgeInsets.all(14.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            verse,
+                            style: TextStyle(fontSize: 17.sp),
+                          ),
+                          Row(children:[ Text('${Bible().getVerseLocation(selectedVerse)}', style: TextStyle(fontSize:  10.sp))], mainAxisAlignment: MainAxisAlignment.end),
+                        ],
+                      ),
+                    ),
                   ),
                   Expanded(child: Container()),
                   Row(children: [
                     IconButtonText(
+                        size: 14.sp,
                         icon: Icons.home,
                         text: 'toHomescreen'.tr(),
                         onTap: () => Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => Homescreen()))),
                     Expanded(child: Container()),
                     IconButtonText(
+                        size: 14.sp,
                         icon: Icons.navigate_next,
                         text: 'learnVerse'.tr(),
                         onTap: () => Navigator.of(context).push(MaterialPageRoute(

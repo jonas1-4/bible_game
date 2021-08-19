@@ -98,7 +98,7 @@ class GameService {
       return;
     }
 
-    verseList = Bible().nextVerse(verseList);
+    verseList = Bible().getFollowingVerse(verseList);
     SharedPrefs().setSpIntList(spSelectedVerse, verseList);
     levelSelect(context: context);
   }
