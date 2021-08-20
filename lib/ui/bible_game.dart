@@ -1,6 +1,7 @@
 import 'package:bible_game/activities/menus/homescreen.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
+import 'package:bible_game/ui/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
@@ -38,11 +39,8 @@ class BibleMaterialGame extends StatelessWidget {
         localizationsDelegates: context.localizationDelegates,
         supportedLocales: context.supportedLocales,
         locale: context.locale,
-        initialRoute: homescreenPath,
         debugShowCheckedModeBanner: false,
-        routes: {
-          homescreenPath: (context) => Homescreen(),
-        },
+        home: Homescreen(),
       );
     });
   }

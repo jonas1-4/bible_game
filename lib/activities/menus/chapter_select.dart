@@ -57,7 +57,7 @@ class ChapterSelect extends StatelessWidget {
                                         context,
                                         MaterialPageRoute(
                                             builder: (context) =>
-                                                new VerseSelect(
+                                                VerseSelect(
                                                     book: book,
                                                     chapter: index)));
                                   },

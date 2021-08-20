@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bible_game/activities/menus/homescreen.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
@@ -9,6 +11,7 @@ import 'package:flutter/scheduler.dart';
 
 import '../main.dart';
 import 'bible_game.dart';
+BuildContext? _context ;
 
 // TODO the hero animation should go to homescreen
 class Splash extends StatefulWidget {
@@ -17,22 +20,24 @@ class Splash extends StatefulWidget {
 }
 
 class _SplashState extends State<Splash> {
+  bool navigate = false;
   startTimer() async {
-    await AppService().bibleGameInit();
-      Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => BibleGame()));
-
+    Timer(Duration(milliseconds: 10000), () {
+      Navigator.of(_context!)
+          .push(MaterialPageRoute(builder: (context) => Homescreen()));
+    });
   }
 
   @override
   void initState() {
     super.initState();
+    startTimer();
   }
 
   @override
   Widget build(BuildContext context) {
-    // timeDilation = 15;
-    startTimer();
+    _context = context;
+     timeDilation = 15;
     return Scaffold(
       backgroundColor: Colorthemes.background[theme],
       body: Center(

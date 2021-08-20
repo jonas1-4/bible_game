@@ -26,6 +26,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
+     timeDilation = 1;
   }
 
   @override

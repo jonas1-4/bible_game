@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bible_game/activities/games/verse_order_game.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
@@ -7,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
+import '../../main.dart';
 import 'after_level.dart';
 import 'homescreen.dart';
 
@@ -37,7 +40,7 @@ class _VerseDisplayState extends State<VerseDisplay> {
         backgroundColor: Colorthemes.background[theme],
         body: SizedBox.expand(
           child: GestureDetector(
-              behavior: HitTestBehavior.opaque,
+            behavior: HitTestBehavior.opaque,
             onHorizontalDragEnd: (details) {
               // Swiping in right direction.
               if (details.velocity.pixelsPerSecond.dx > 250) {
@@ -58,7 +61,9 @@ class _VerseDisplayState extends State<VerseDisplay> {
               child: Column(
                 children: [
                   Card(
-                      color: Colorthemes.backgroundlight[theme],
+                    elevation: 10,
+                    color: Colorthemes()
+                        .darken(Colorthemes.background[theme], 30),
                     child: Padding(
                       padding: const EdgeInsets.all(14.0),
                       child: Column(
@@ -67,7 +72,10 @@ class _VerseDisplayState extends State<VerseDisplay> {
                             verse,
                             style: TextStyle(fontSize: 17.sp),
                           ),
-                          Row(children:[ Text('${Bible().getVerseLocation(selectedVerse)}', style: TextStyle(fontSize:  10.sp))], mainAxisAlignment: MainAxisAlignment.end),
+                          Row(children: [
+                            Text('${Bible().getVerseLocation(selectedVerse)}',
+                                style: TextStyle(fontSize: 10.sp))
+                          ], mainAxisAlignment: MainAxisAlignment.end),
                         ],
                       ),
                     ),
@@ -75,18 +83,21 @@ class _VerseDisplayState extends State<VerseDisplay> {
                   Expanded(child: Container()),
                   Row(children: [
                     IconButtonText(
-                        size: 14.sp,
+                        size: 12.sp,
                         icon: Icons.home,
                         text: 'toHomescreen'.tr(),
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => Homescreen()))),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => Homescreen()))),
                     Expanded(child: Container()),
                     IconButtonText(
-                        size: 14.sp,
+                        size: 12.sp,
                         icon: Icons.navigate_next,
                         text: 'learnVerse'.tr(),
-                        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => VerseOrderGame(level: 0)))),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    VerseOrderGame(level: 0)))),
                   ])
                 ],
               ),

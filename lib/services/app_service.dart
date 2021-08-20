@@ -7,7 +7,6 @@ import 'shared_prefs.dart';
 class AppService {
   bibleGameInit() async {
     await SharedPrefs().init();
-    await EasyLocalization.ensureInitialized();
     await rateMyApp.init();
     // TODO Detect Language and set everything automatik
 
@@ -21,5 +20,6 @@ class AppService {
 
     bible = await JsonService().getJson(
         'assets/json/${SharedPrefs().getSpStr(spBibleVersionJson)}.json');
+    return true;
   }
 }

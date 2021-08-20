@@ -66,7 +66,7 @@ class GameService {
       case 0:
         {
           Navigator.push(context,
-              new MaterialPageRoute(builder: (context) => new VerseDisplay()));
+              MaterialPageRoute(builder: (context) => VerseDisplay()));
         }
         break;
       case 3:
@@ -81,8 +81,8 @@ class GameService {
         {
           Navigator.push(
               context,
-              new MaterialPageRoute(
-                  builder: (context) => new VerseOrderGame(
+              MaterialPageRoute(
+                  builder: (context) => VerseOrderGame(
                         level: currentVerseLevel,
                       )));
         }

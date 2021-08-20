@@ -4,8 +4,6 @@ import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:flutter/material.dart';
 
-int _position = 0;
-
 class OrderChipsGame extends StatefulWidget {
   const OrderChipsGame({
     Key? key,
@@ -37,7 +35,8 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
   int errors = 0, count = 0, percentHidden = 0;
   bool firstLetter = false;
   List<Map<String, bool>> gangGang = [new Map<String, bool>()];
-  final ScrollController topScrollController = ScrollController(), botScrollController = ScrollController();
+  final ScrollController topScrollController = ScrollController(),
+      botScrollController = ScrollController();
 
   @override
   void initState() {
@@ -98,10 +97,10 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
           Expanded(
             flex: 1,
             child: Scrollbar(
-                isAlwaysShown: true,
-                controller: topScrollController,
+              isAlwaysShown: true,
+              controller: topScrollController,
               child: ListView(
-                  controller: topScrollController,
+                controller: topScrollController,
                 children: [
                   Wrap(
                       children: gangGang.map((e) {
@@ -148,7 +147,8 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                                         style: TextStyle(
                                           fontSize: 16,
                                           color: (e.containsValue(true))
-                                              ? Colorthemes.backgroundlight[theme]
+                                              ? Colorthemes
+                                                  .backgroundlight[theme]
                                               : Colorthemes.foreground[theme],
                                         ),
                                       ))));
@@ -167,10 +167,10 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                   child: Container(
                     alignment: Alignment.bottomCenter,
                     child: Scrollbar(
-
-                isAlwaysShown: true,
-                controller: botScrollController,
-                      child: ListView(controller: botScrollController,children: [
+                      isAlwaysShown: true,
+                      controller: botScrollController,
+                      child:
+                          ListView(controller: botScrollController, children: [
                         Wrap(
                           alignment: WrapAlignment.start,
                           crossAxisAlignment: WrapCrossAlignment.end,
@@ -183,7 +183,8 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                                             e.toLowerCase() ||
                                         (firstLetter &&
                                             e[0].toLowerCase() ==
-                                                checkList[0][0].toLowerCase())) {
+                                                checkList[0][0]
+                                                    .toLowerCase())) {
                                       setState(() {
                                         bottomList.remove(checkList[0]);
                                         for (Map i in gangGang) {
@@ -251,7 +252,8 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
                                         label: Text(
                                           e,
                                           style: TextStyle(
-                                              color: Colors.black, fontSize: 17),
+                                              color: Colors.black,
+                                              fontSize: 17),
                                         ),
                                       ),
                                     ),

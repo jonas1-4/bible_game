@@ -25,13 +25,11 @@ class VerseOrderGame extends StatefulWidget {
 class _VerseOrderGameState extends State<VerseOrderGame> {
   int errors = 0;
   List<String> verse = [];
-  List<int> selectedVerse = [];
+  List<int> selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
 
   @override
   void initState() {
     super.initState();
-
-    selectedVerse = SharedPrefs().getSpIntList(spSelectedVerse);
     verse = Bible()
         .getSplitVerse(selectedVerse[0], selectedVerse[1], selectedVerse[2]);
   }

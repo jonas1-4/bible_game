@@ -4,42 +4,64 @@ import 'package:bible_game/main.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/icon_row.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:easy_localization/easy_localization.dart';
+
+import 'homescreen.dart';
 
 class EndScreen extends StatefulWidget {
   @override
   _EndScreenState createState() => _EndScreenState();
 }
 
+class IconButtonText extends StatelessWidget {
+  final Function onTap;
+
+  final String text;
+  final IconData icon;
+  final double size;
+  const IconButtonText({
+    required this.onTap,
+    required this.icon,
+    required this.text,
+    this.size = 20,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () => onTap(),
+      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Icon(
+          icon,
+          size: size,
+          color: Colorthemes.foreground[theme],
+        ),
+        SizedBox(
+          width: 10,
+        ),
+        Text(
+          text,
+          style:
+              TextStyle(color: Colorthemes.foreground[theme], fontSize: size),
+        ),
+      ]),
+    );
+  }
+}
 
 class _EndScreenState extends State<EndScreen> {
   int stars = SharedPrefs().getSpInt(
       spVerseLevel + SharedPrefs().getSpIntList(spSelectedVerse).toString());
   @override
-  void initState(){
-    super.initState();
-
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
-      if (mounted && rateMyApp.shouldOpenDialog) {
-        rateMyApp.showRateDialog(
-          context,
-          laterButton: 'appRateLater'.tr(),
-          rateButton: 'appRateRate'.tr(),
-          noButton: 'appRateNo'.tr(),
-          title: 'appRateTitle'.tr(),
-          message: 'appRateMessage'.tr(),
-        );
-      }
-    });
-  }
-  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
         //have to pop so the lastverse/continue Button updates
-        Navigator.popAndPushNamed(context, homescreenPath);
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Homescreen()));
         return true;
       },
       child: Scaffold(
@@ -91,8 +113,10 @@ class _EndScreenState extends State<EndScreen> {
                       ),
                       IconButtonText(
                         icon: Icons.home,
-                        onTap: () =>
-                            Navigator.popAndPushNamed(context, homescreenPath),
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Homescreen())),
                         text: 'toHomescreen'.tr(),
                       ),
                     ],
@@ -106,41 +130,22 @@ class _EndScreenState extends State<EndScreen> {
       ),
     );
   }
-}
-
-class IconButtonText extends StatelessWidget {
-  const IconButtonText({
-    required this.onTap,
-    required this.icon,
-    required this.text,
-    this.size = 20,
-    Key? key,
-  }) : super(key: key);
-
-  final Function onTap;
-  final String text;
-  final IconData icon;
-  final double size;
-  
 
   @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(),
-      child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Icon(
-          icon,
-          size: size,
-          color: Colorthemes.foreground[theme],
-        ),
-        SizedBox(
-          width: 10,
-        ),
-        Text(
-          text,
-          style: TextStyle(color: Colorthemes.foreground[theme], fontSize: size),
-        ),
-      ]),
-    );
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) async {
+      if (mounted && rateMyApp.shouldOpenDialog) {
+        rateMyApp.showRateDialog(
+          context,
+          laterButton: 'appRateLater'.tr(),
+          rateButton: 'appRateRate'.tr(),
+          noButton: 'appRateNo'.tr(),
+          title: 'appRateTitle'.tr(),
+          message: 'appRateMessage'.tr(),
+        );
+      }
+    });
   }
 }
