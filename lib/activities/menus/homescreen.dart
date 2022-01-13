@@ -6,9 +6,7 @@ import 'package:bible_game/ui/widgets/homescreen_drawer/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:bible_game/ui/widgets/photo_hero.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 
 import 'book_select.dart';

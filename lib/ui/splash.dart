@@ -3,14 +3,10 @@ import 'dart:async';
 import 'package:bible_game/activities/menus/homescreen.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:bible_game/services/app_service.dart';
 import 'package:bible_game/ui/widgets/photo_hero.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-import '../main.dart';
-import 'bible_game.dart';
 BuildContext? _context ;
 
 // TODO the hero animation should go to homescreen

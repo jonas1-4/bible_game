@@ -71,7 +71,7 @@ class _OrderChipsGameState extends State<OrderChipsGame> {
       List<int> elementsToRemove = [];
       while (topList.length - elementsToRemove.length >=
           topList.length * (percentHidden / 100)) {
-        Random random = new Random();
+        Random random = Random();
         int elementIndex = random.nextInt(topList.length);
         while (elementsToRemove.contains(elementIndex)) {
           elementIndex = random.nextInt(topList.length);

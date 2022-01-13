@@ -2,7 +2,6 @@
 
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DrawerDropDown extends StatelessWidget {

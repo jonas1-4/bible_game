@@ -2,7 +2,6 @@ import 'package:bible_game/activities/menus/chapter_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/bible.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';

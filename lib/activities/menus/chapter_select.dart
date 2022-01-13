@@ -2,9 +2,7 @@ import 'package:bible_game/activities/menus/verse_select.dart';
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/shared_prefs.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class ChapterSelect extends StatelessWidget {
@@ -29,7 +27,7 @@ class ChapterSelect extends StatelessWidget {
           return Container(
               color: Colorthemes.background[theme],
               child: Padding(
-                padding: EdgeInsets.fromLTRB(50, 20, 50, 50),
+                padding: EdgeInsets.fromLTRB(10, 20, 10, 50),
                 child: Container(
                   height: constrains.maxHeight,
                   child: ListView.builder(

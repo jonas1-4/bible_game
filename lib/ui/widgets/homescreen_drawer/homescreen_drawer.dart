@@ -49,7 +49,7 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
   Widget build(BuildContext context) {
     String currentTranslation = SharedPrefs().getSpStr(spLanguage);
     String currentBible = SharedPrefs().getSpStr(spBibleVersionName);
-    SystemChrome.setEnabledSystemUIOverlays(SystemUiOverlay.values);
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: SystemUiOverlay.values);
     return Drawer(
         child: Container(
             color: Colorthemes.background[theme],

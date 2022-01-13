@@ -1,4 +1,3 @@
-import 'package:bible_game/services/shared_prefs.dart';
 import 'package:rate_my_app/rate_my_app.dart';
 
 int theme = 0;
@@ -26,3 +25,4 @@ const String spBibleVersionJson         = 'bibleVersionJson';
 const String spVerseLevel               = 'verseLevel';
 const String spChapterLevel             = 'chapterLevel';  
 const String spSelectedVerse            = 'selectedVerse';
+

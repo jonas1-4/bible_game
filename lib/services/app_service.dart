@@ -1,5 +1,4 @@
 import 'package:bible_game/data/public_variables.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'jsons.dart';
 import 'shared_prefs.dart';

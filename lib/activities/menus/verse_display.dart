@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:bible_game/activities/games/verse_order_game.dart';
 import 'package:bible_game/data/colors.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:sizer/sizer.dart';
 
-import '../../main.dart';
 import 'after_level.dart';
 import 'homescreen.dart';
 

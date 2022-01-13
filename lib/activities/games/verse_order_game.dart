@@ -7,9 +7,7 @@ import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/icon_row.dart';
 import 'package:bible_game/ui/widgets/order_chips_game.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import '../../main.dart';

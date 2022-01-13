@@ -1,11 +1,9 @@
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
-import 'package:bible_game/main.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/icon_row.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'homescreen.dart';
