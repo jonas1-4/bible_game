@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/game_service.dart';
@@ -18,12 +20,22 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  final _toolTipKey = new GlobalKey();
+
   void refresh() {
     setState(() {});
   }
 
   @override
   void initState() {
+    if (SharedPrefs().getSpBool(spFirstLaunchTooltip) == null) {
+      Timer(Duration(seconds: 2), () {
+        final dynamic tooltip = _toolTipKey.currentState;
+        tooltip.ensureTooltipVisible();
+      });
+      print('show Tooltip');
+      SharedPrefs().setSpBool(spFirstLaunchTooltip, true);
+    }
     super.initState();
     timeDilation = 1;
   }
@@ -47,17 +59,16 @@ class _HomescreenState extends State<Homescreen> {
                 ),
                 message: 'homeScreendDrawerTooltip'.tr(),
                 padding: EdgeInsets.all(20),
-                margin: EdgeInsets.all(20),
+                margin: EdgeInsets.fromLTRB(0,20,0,20),
                 showDuration: Duration(seconds: 10),
                 decoration: ShapeDecoration(
-                  shape:TooltipShapeBorder(arrowArc: 0.5),
-
+                  shape: TooltipShapeBorder(arrowArc: 0.5),
                   color: Colorthemes.backgroundlight[theme],
                 ),
-
                 textStyle: TextStyle(color: Colors.white),
                 preferBelow: true,
                 verticalOffset: 20,
+                key: _toolTipKey,
               );
             },
           ),

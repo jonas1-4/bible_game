@@ -7,9 +7,10 @@ class AppService {
   bibleGameInit() async {
     await SharedPrefs().init();
     await rateMyApp.init();
-    // TODO Detect Language and set everything automatik
+    // TODO Detect Language and set everything automatic
 
     if (SharedPrefs().getSpStr(spBibleVersionJson).isEmpty) {
+
       SharedPrefs().setSpStr(spBibleVersionJson, 'en_bbe');
       SharedPrefs().setSpStr(spLanguage, 'English');
       SharedPrefs().setSpInt(spLanguageIndex, 4);

@@ -99,6 +99,6 @@ class SharedPrefs {
 
   ///Get a SharedPrefs Bool (Name)
   getSpBool(String spName) {
-    return _prefs!.getBool(spName) ?? false;
+    return _prefs!.getBool(spName) ?? null;
   }
 }
