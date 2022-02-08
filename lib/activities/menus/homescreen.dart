@@ -2,6 +2,7 @@ import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
+import 'package:bible_game/ui/widgets/TooltipShapeBorder.dart';
 import 'package:bible_game/ui/widgets/homescreen_drawer/homescreen_drawer.dart';
 import 'package:bible_game/ui/widgets/menucard.dart';
 import 'package:bible_game/ui/widgets/photo_hero.dart';
@@ -24,7 +25,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
-     timeDilation = 1;
+    timeDilation = 1;
   }
 
   @override
@@ -35,6 +36,31 @@ class _HomescreenState extends State<Homescreen> {
           foregroundColor: Colorthemes.background[theme],
           iconTheme: IconThemeData(color: Colorthemes.foreground[theme]),
           backgroundColor: Colorthemes.backgroundlight[theme],
+          leading: Builder(
+            builder: (BuildContext context) {
+              return Tooltip(
+                child: IconButton(
+                  icon: Icon(Icons.menu),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+                message: 'homeScreendDrawerTooltip'.tr(),
+                padding: EdgeInsets.all(20),
+                margin: EdgeInsets.all(20),
+                showDuration: Duration(seconds: 10),
+                decoration: ShapeDecoration(
+                  shape:TooltipShapeBorder(arrowArc: 0.5),
+
+                  color: Colorthemes.backgroundlight[theme],
+                ),
+
+                textStyle: TextStyle(color: Colors.white),
+                preferBelow: true,
+                verticalOffset: 20,
+              );
+            },
+          ),
           title: Title(
               color: Colors.black,
               child: Text(

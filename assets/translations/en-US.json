@@ -20,5 +20,6 @@
   "appRateRate":"Rate",
   "appRateMessage":"If you enjoy this app we would be excited, if you rate it",
   "appRateTitle":"Rate our App",
-  "learnVerse":"Learn verse"
+  "learnVerse":"Learn verse",
+  "homeScreendDrawerTooltip":"Change the bible-translation"
 }
