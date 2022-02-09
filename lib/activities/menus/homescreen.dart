@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bible_game/data/colors.dart';
 import 'package:bible_game/data/public_variables.dart';
+import 'package:bible_game/services/app_service.dart';
 import 'package:bible_game/services/game_service.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:bible_game/ui/widgets/TooltipShapeBorder.dart';
@@ -27,7 +28,7 @@ class _HomescreenState extends State<Homescreen> {
   }
 
   @override
-  void initState() {
+  void initState() async{
     if (SharedPrefs().getSpBool(spFirstLaunchTooltip) == null) {
       Timer(Duration(seconds: 2), () {
         final dynamic tooltip = _toolTipKey.currentState;
@@ -40,9 +41,15 @@ class _HomescreenState extends State<Homescreen> {
     timeDilation = 1;
   }
 
+  callBibleGameInit(BuildContext context)async{
+    await AppService().bibleGameInit(context);
+
+  }
+
   @override
   Widget build(BuildContext context) {
     final List<int> lastVerse = SharedPrefs().getSpIntList(spSelectedVerse);
+    callBibleGameInit(context);
     return Scaffold(
         appBar: AppBar(
           foregroundColor: Colorthemes.background[theme],

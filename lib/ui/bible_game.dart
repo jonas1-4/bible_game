@@ -27,6 +27,7 @@ class BibleMaterialGame extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Sizer(builder: (context, orientation, deviceType) {
+
       return MaterialApp(
         theme: ThemeData(
           textTheme: Theme.of(context).textTheme.apply(
