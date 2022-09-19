@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import 'data/public_variables.dart';
-
+a
 const String splashscreenPath = '/splash';
 const String biblegamePath = '/biblegame';
 const String homescreenPath = '/homescreen';
@@ -14,6 +14,5 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await SharedPrefs().init();
-  await rateMyApp.init();
   runApp(BibleGame());
 }

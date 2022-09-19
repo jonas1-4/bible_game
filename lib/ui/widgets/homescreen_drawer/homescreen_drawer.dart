@@ -6,7 +6,6 @@ import 'package:bible_game/services/jsons.dart';
 import 'package:bible_game/services/shared_prefs.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_donation_buttons/donationButtons/paypalButton.dart';
 
 import 'drawer_dropdown.dart';
 
@@ -101,8 +100,6 @@ class _HomeScreenDrawerState extends State<HomeScreenDrawer> {
                           print(index.toString()+value);
                           setState(() {});
                         }),
-                    Expanded(child: Container()),
-                    PayPalButton(paypalButtonId: "NH72DTS2U7MW8", donationText: 'donatePP'.tr(),),
                   ]),
                 ),
               )

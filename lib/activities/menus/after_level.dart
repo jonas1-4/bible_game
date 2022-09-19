@@ -127,23 +127,6 @@ class _EndScreenState extends State<EndScreen> {
             ])),
       ),
     );
-  }
 
-  @override
-  void initState() {
-    super.initState();
-
-    WidgetsBinding.instance?.addPostFrameCallback((_) async {
-      if (mounted && rateMyApp.shouldOpenDialog) {
-        rateMyApp.showRateDialog(
-          context,
-          laterButton: 'appRateLater'.tr(),
-          rateButton: 'appRateRate'.tr(),
-          noButton: 'appRateNo'.tr(),
-          title: 'appRateTitle'.tr(),
-          message: 'appRateMessage'.tr(),
-        );
-      }
-    });
   }
 }

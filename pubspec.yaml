@@ -27,9 +27,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   shared_preferences: ^2.0.6
   firebase: ^9.0.1
-  flutter_donation_buttons: ^0.0.3
   easy_localization: ^3.0.0
-  rate_my_app: ^1.1.1
   flutter_native_splash: ^1.2.1
   sizer: ^2.0.13
   flutter_bloc: ^7.2.0
